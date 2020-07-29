@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
 
+@LazySingleton()
 class CheckAppState {
   final SharedPreferences sharedPreferences;
 

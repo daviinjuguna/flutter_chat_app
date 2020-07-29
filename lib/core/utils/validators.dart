@@ -10,6 +10,11 @@ class Validators {
   static final RegExp _nameRegExp = RegExp(
     r"^[a-zA-Z]{2,30}$"
   );
+
+  static final RegExp _numberRegExp = RegExp(
+    r'^(?:[0]9)?[0-9]{6,6}$'
+  );
+
   static isValidEmail(String email) {
     return _emailRegExp.hasMatch(email);
   }
@@ -20,5 +25,9 @@ class Validators {
 
   static isValidName(String name){
     return _nameRegExp.hasMatch(name);
+  }
+
+  static isValidPin(String pin){
+    return _numberRegExp.hasMatch(pin);
   }
 }

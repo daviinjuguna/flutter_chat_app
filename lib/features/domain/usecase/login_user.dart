@@ -6,7 +6,9 @@ import 'package:flutterchatapp/core/usecase/usecase.dart';
 import 'package:flutterchatapp/features/data/model/login_model.dart';
 import 'package:flutterchatapp/features/domain/entities/api_success.dart';
 import 'package:flutterchatapp/features/domain/repository/chat_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class LoginUser extends UseCase<ApiSuccess, LoginParams> {
   final ChatRepository repository;
 

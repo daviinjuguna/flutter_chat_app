@@ -3,9 +3,15 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterchatapp/injection.dart';
+import 'package:injectable/injectable.dart';
 
 
-void main() => runApp(MyApp());
+void main() async{ 
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureInjection(Environment.prod);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

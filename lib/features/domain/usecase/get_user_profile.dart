@@ -4,7 +4,9 @@ import 'package:flutterchatapp/core/errors/failures.dart';
 import 'package:flutterchatapp/core/usecase/usecase.dart';
 import 'package:flutterchatapp/features/domain/entities/register.dart';
 import 'package:flutterchatapp/features/domain/repository/chat_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class GetUserProfile extends UseCase<Register, NoParams> {
   final ChatRepository repository;
 

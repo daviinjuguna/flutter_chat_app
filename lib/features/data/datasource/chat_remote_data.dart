@@ -10,6 +10,7 @@ import 'package:flutterchatapp/features/data/model/recover_model.dart';
 import 'package:flutterchatapp/features/data/model/recover_password_model.dart';
 import 'package:flutterchatapp/features/data/model/refresh_model.dart';
 import 'package:flutterchatapp/features/data/model/register_model.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class ChatRemoteData {
   Future<ApiSuccessModel> loginUser(LoginModel model);
@@ -19,6 +20,7 @@ abstract class ChatRemoteData {
   Future<ApiSuccessModel>refreshToken(RefreshModel model);
 }
 
+@LazySingleton(as:ChatRemoteData)
 class ChatRemoteDataImpl implements ChatRemoteData {
   final ChatApiService service;
 

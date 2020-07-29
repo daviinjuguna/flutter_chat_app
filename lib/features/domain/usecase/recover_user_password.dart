@@ -6,7 +6,9 @@ import 'package:flutterchatapp/core/usecase/usecase.dart';
 import 'package:flutterchatapp/features/data/model/recover_model.dart';
 import 'package:flutterchatapp/features/domain/entities/recover_password.dart';
 import 'package:flutterchatapp/features/domain/repository/chat_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class RecoverUserPassword extends UseCase<RecoverPassword,RecoverParams> {
   final ChatRepository repository;
 

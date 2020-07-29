@@ -5,12 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutterchatapp/features/domain/usecase/check_first_time.dart';
 import 'package:flutterchatapp/features/domain/usecase/check_login.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 part 'auth_bloc.freezed.dart';
 
+@injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final CheckFirstTime checkFirstTime;
   final CheckLogin checkLogin;

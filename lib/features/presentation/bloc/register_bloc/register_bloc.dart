@@ -5,12 +5,14 @@ import 'package:flutterchatapp/core/utils/validators.dart';
 import 'package:flutterchatapp/features/data/model/register_model.dart';
 import 'package:flutterchatapp/features/domain/usecase/register_user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
 
 part 'register_bloc.freezed.dart';
 
+@injectable
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterUser user;
   RegisterBloc({@required this.user}) : super(RegisterState.initial());

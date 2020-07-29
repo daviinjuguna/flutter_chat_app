@@ -5,12 +5,14 @@ import 'package:flutterchatapp/core/utils/validators.dart';
 import 'package:flutterchatapp/features/data/model/login_model.dart';
 import 'package:flutterchatapp/features/domain/usecase/login_user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 part 'login_bloc.freezed.dart';
 
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUser user;
   

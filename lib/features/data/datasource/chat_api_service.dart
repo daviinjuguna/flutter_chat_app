@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:chopper/chopper.dart';
 import 'package:http/io_client.dart' as http;
+import 'package:injectable/injectable.dart';
 
 part 'chat_api_service.chopper.dart';
 
+@LazySingleton()
 @ChopperApi(baseUrl:"/api")
 abstract class ChatApiService extends ChopperService {
   
@@ -33,6 +35,7 @@ abstract class ChatApiService extends ChopperService {
     @Body() Map<String, dynamic> body,
   );
 
+  @factoryMethod
   static ChatApiService create(){
      final client = ChopperClient(
       baseUrl: 'localhost:8000',
