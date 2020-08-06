@@ -44,12 +44,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       loginPressed: (e)async*{
         LoginModel model = LoginModel(email: e.email, password: e.password);
         yield LoginState.loading();
-        try{
-          await user(LoginParams(model: model));
-          yield LoginState.success();
-        }catch(_){
-          yield LoginState.failure();
-        }
+        final loginEither = await user(LoginParams(model: model));
+        yield* loginEither.fold(
+          (failure) async*{
+            yield LoginState.failure();
+          },
+          (success) async*{
+            yield LoginState.success();
+          }
+        );
       }
     );
   }

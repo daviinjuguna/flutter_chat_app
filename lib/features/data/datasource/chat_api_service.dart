@@ -11,26 +11,31 @@ part 'chat_api_service.chopper.dart';
 abstract class ChatApiService extends ChopperService {
   
   @Post(path: "/login")
+  @FactoryConverter(request: FormUrlEncodedConverter.requestFactory)
   Future<Response> loginUser(
     @Body() Map<String, dynamic> body,
   );
 
   @Post(path: "/register")
+  @FactoryConverter(request: FormUrlEncodedConverter.requestFactory)
   Future<Response> registerUser(
     @Body() Map<String, dynamic> body,
   );
 
   @Post(path: "/refresh")
+  @FactoryConverter(request: FormUrlEncodedConverter.requestFactory)
   Future<Response> refreshToken(
-    @Body() Map<String, dynamic> body,
+    @Field('refresh_token') String refreshToken,
   );
 
   @Post(path: "/recover")
+  @FactoryConverter(request: FormUrlEncodedConverter.requestFactory)
   Future<Response> recoverPassword(
     @Body() Map<String, dynamic> body,
   );
 
   @Post(path: "/change")
+  @FactoryConverter(request: FormUrlEncodedConverter.requestFactory)
   Future<Response> changePassword(
     @Body() Map<String, dynamic> body,
   );
@@ -45,7 +50,10 @@ abstract class ChatApiService extends ChopperService {
         HttpClient()..connectionTimeout = const Duration(seconds: 60),
       ),
       interceptors: [
-        HeadersInterceptor({'Accept': 'application/json'}),
+        HeadersInterceptor({
+          'Accept': 'application/json',
+          // 'Authorization':'Bearer $accessToken'
+        }),
         HttpLoggingInterceptor()
       ]
     );

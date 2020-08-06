@@ -26,6 +26,11 @@ class _$AuthEventTearOff {
   AuthLoggedOut loggedOut() {
     return const AuthLoggedOut();
   }
+
+// ignore: unused_element
+  RefreshToken refreshToken() {
+    return const RefreshToken();
+  }
 }
 
 // ignore: unused_element
@@ -37,12 +42,14 @@ mixin _$AuthEvent {
     @required Result started(),
     @required Result loggedIn(),
     @required Result loggedOut(),
+    @required Result refreshToken(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result started(),
     Result loggedIn(),
     Result loggedOut(),
+    Result refreshToken(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -50,12 +57,14 @@ mixin _$AuthEvent {
     @required Result started(AuthStarted value),
     @required Result loggedIn(AuthLoggedIn value),
     @required Result loggedOut(AuthLoggedOut value),
+    @required Result refreshToken(RefreshToken value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result started(AuthStarted value),
     Result loggedIn(AuthLoggedIn value),
     Result loggedOut(AuthLoggedOut value),
+    Result refreshToken(RefreshToken value),
     @required Result orElse(),
   });
 }
@@ -117,10 +126,12 @@ class _$AuthStarted with DiagnosticableTreeMixin implements AuthStarted {
     @required Result started(),
     @required Result loggedIn(),
     @required Result loggedOut(),
+    @required Result refreshToken(),
   }) {
     assert(started != null);
     assert(loggedIn != null);
     assert(loggedOut != null);
+    assert(refreshToken != null);
     return started();
   }
 
@@ -130,6 +141,7 @@ class _$AuthStarted with DiagnosticableTreeMixin implements AuthStarted {
     Result started(),
     Result loggedIn(),
     Result loggedOut(),
+    Result refreshToken(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -145,10 +157,12 @@ class _$AuthStarted with DiagnosticableTreeMixin implements AuthStarted {
     @required Result started(AuthStarted value),
     @required Result loggedIn(AuthLoggedIn value),
     @required Result loggedOut(AuthLoggedOut value),
+    @required Result refreshToken(RefreshToken value),
   }) {
     assert(started != null);
     assert(loggedIn != null);
     assert(loggedOut != null);
+    assert(refreshToken != null);
     return started(this);
   }
 
@@ -158,6 +172,7 @@ class _$AuthStarted with DiagnosticableTreeMixin implements AuthStarted {
     Result started(AuthStarted value),
     Result loggedIn(AuthLoggedIn value),
     Result loggedOut(AuthLoggedOut value),
+    Result refreshToken(RefreshToken value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -216,10 +231,12 @@ class _$AuthLoggedIn with DiagnosticableTreeMixin implements AuthLoggedIn {
     @required Result started(),
     @required Result loggedIn(),
     @required Result loggedOut(),
+    @required Result refreshToken(),
   }) {
     assert(started != null);
     assert(loggedIn != null);
     assert(loggedOut != null);
+    assert(refreshToken != null);
     return loggedIn();
   }
 
@@ -229,6 +246,7 @@ class _$AuthLoggedIn with DiagnosticableTreeMixin implements AuthLoggedIn {
     Result started(),
     Result loggedIn(),
     Result loggedOut(),
+    Result refreshToken(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -244,10 +262,12 @@ class _$AuthLoggedIn with DiagnosticableTreeMixin implements AuthLoggedIn {
     @required Result started(AuthStarted value),
     @required Result loggedIn(AuthLoggedIn value),
     @required Result loggedOut(AuthLoggedOut value),
+    @required Result refreshToken(RefreshToken value),
   }) {
     assert(started != null);
     assert(loggedIn != null);
     assert(loggedOut != null);
+    assert(refreshToken != null);
     return loggedIn(this);
   }
 
@@ -257,6 +277,7 @@ class _$AuthLoggedIn with DiagnosticableTreeMixin implements AuthLoggedIn {
     Result started(AuthStarted value),
     Result loggedIn(AuthLoggedIn value),
     Result loggedOut(AuthLoggedOut value),
+    Result refreshToken(RefreshToken value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -315,10 +336,12 @@ class _$AuthLoggedOut with DiagnosticableTreeMixin implements AuthLoggedOut {
     @required Result started(),
     @required Result loggedIn(),
     @required Result loggedOut(),
+    @required Result refreshToken(),
   }) {
     assert(started != null);
     assert(loggedIn != null);
     assert(loggedOut != null);
+    assert(refreshToken != null);
     return loggedOut();
   }
 
@@ -328,6 +351,7 @@ class _$AuthLoggedOut with DiagnosticableTreeMixin implements AuthLoggedOut {
     Result started(),
     Result loggedIn(),
     Result loggedOut(),
+    Result refreshToken(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -343,10 +367,12 @@ class _$AuthLoggedOut with DiagnosticableTreeMixin implements AuthLoggedOut {
     @required Result started(AuthStarted value),
     @required Result loggedIn(AuthLoggedIn value),
     @required Result loggedOut(AuthLoggedOut value),
+    @required Result refreshToken(RefreshToken value),
   }) {
     assert(started != null);
     assert(loggedIn != null);
     assert(loggedOut != null);
+    assert(refreshToken != null);
     return loggedOut(this);
   }
 
@@ -356,6 +382,7 @@ class _$AuthLoggedOut with DiagnosticableTreeMixin implements AuthLoggedOut {
     Result started(AuthStarted value),
     Result loggedIn(AuthLoggedIn value),
     Result loggedOut(AuthLoggedOut value),
+    Result refreshToken(RefreshToken value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -368,6 +395,111 @@ class _$AuthLoggedOut with DiagnosticableTreeMixin implements AuthLoggedOut {
 
 abstract class AuthLoggedOut implements AuthEvent {
   const factory AuthLoggedOut() = _$AuthLoggedOut;
+}
+
+abstract class $RefreshTokenCopyWith<$Res> {
+  factory $RefreshTokenCopyWith(
+          RefreshToken value, $Res Function(RefreshToken) then) =
+      _$RefreshTokenCopyWithImpl<$Res>;
+}
+
+class _$RefreshTokenCopyWithImpl<$Res> extends _$AuthEventCopyWithImpl<$Res>
+    implements $RefreshTokenCopyWith<$Res> {
+  _$RefreshTokenCopyWithImpl(
+      RefreshToken _value, $Res Function(RefreshToken) _then)
+      : super(_value, (v) => _then(v as RefreshToken));
+
+  @override
+  RefreshToken get _value => super._value as RefreshToken;
+}
+
+class _$RefreshToken with DiagnosticableTreeMixin implements RefreshToken {
+  const _$RefreshToken();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AuthEvent.refreshToken()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'AuthEvent.refreshToken'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is RefreshToken);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result started(),
+    @required Result loggedIn(),
+    @required Result loggedOut(),
+    @required Result refreshToken(),
+  }) {
+    assert(started != null);
+    assert(loggedIn != null);
+    assert(loggedOut != null);
+    assert(refreshToken != null);
+    return refreshToken();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result started(),
+    Result loggedIn(),
+    Result loggedOut(),
+    Result refreshToken(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (refreshToken != null) {
+      return refreshToken();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result started(AuthStarted value),
+    @required Result loggedIn(AuthLoggedIn value),
+    @required Result loggedOut(AuthLoggedOut value),
+    @required Result refreshToken(RefreshToken value),
+  }) {
+    assert(started != null);
+    assert(loggedIn != null);
+    assert(loggedOut != null);
+    assert(refreshToken != null);
+    return refreshToken(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result started(AuthStarted value),
+    Result loggedIn(AuthLoggedIn value),
+    Result loggedOut(AuthLoggedOut value),
+    Result refreshToken(RefreshToken value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (refreshToken != null) {
+      return refreshToken(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RefreshToken implements AuthEvent {
+  const factory RefreshToken() = _$RefreshToken;
 }
 
 class _$AuthStateTearOff {

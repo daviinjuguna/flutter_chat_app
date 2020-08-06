@@ -8,7 +8,6 @@ import 'package:flutterchatapp/features/data/model/change_password_model.dart';
 import 'package:flutterchatapp/features/data/model/login_model.dart';
 import 'package:flutterchatapp/features/data/model/recover_model.dart';
 import 'package:flutterchatapp/features/data/model/recover_password_model.dart';
-import 'package:flutterchatapp/features/data/model/refresh_model.dart';
 import 'package:flutterchatapp/features/data/model/register_model.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,7 +16,7 @@ abstract class ChatRemoteData {
   Future<ApiSuccessModel>registerUser(RegisterModel model);
   Future<RecoverPasswordModel>recoverPassword(RecoverModel model);
   Future<ChangePasswordModel>changePassword(ChangeModel model);
-  Future<ApiSuccessModel>refreshToken(RefreshModel model);
+  Future<ApiSuccessModel>refreshToken(ApiSuccessModel model);
 }
 
 @LazySingleton(as:ChatRemoteData)
@@ -75,8 +74,8 @@ class ChatRemoteDataImpl implements ChatRemoteData {
   }
 
   @override
-  Future<ApiSuccessModel> refreshToken(RefreshModel model)async {
-    final response = await service.refreshToken(model.toJson());
+  Future<ApiSuccessModel> refreshToken(ApiSuccessModel model)async {
+    final response = await service.refreshToken(model.refresh_token);
 
     if (response.statusCode == 200) {
       var result = ApiSuccessModel.fromJson(response.body);

@@ -3,7 +3,6 @@ import 'package:flutterchatapp/core/errors/exceptions.dart';
 import 'package:flutterchatapp/core/network/network_info.dart';
 import 'package:flutterchatapp/features/data/datasource/chat_local_data.dart';
 import 'package:flutterchatapp/features/data/datasource/chat_remote_data.dart';
-import 'package:flutterchatapp/features/domain/entities/register.dart';
 import 'package:flutterchatapp/features/domain/entities/recover_password.dart';
 import 'package:flutterchatapp/features/domain/entities/change_password.dart';
 import 'package:flutterchatapp/features/domain/entities/api_success.dart';
@@ -33,7 +32,7 @@ class ChatRepositoryImpl implements ChatRepository {
       try{
         print(model.toJson());
         final response = await remoteData.loginUser(model);
-        // localData.cacheUser(model);
+        localData.cacheAuthToken(response);
         return Right(response);
       } on ServerException{
         return Left(ServerFailure());
@@ -50,7 +49,7 @@ class ChatRepositoryImpl implements ChatRepository {
       try{
         print(model.toJson());
         final response = await remoteData.registerUser(model);
-        localData.cacheUser(model);
+        localData.cacheAuthToken(response);
         return Right(response);
       } on ServerException{
         return Left(ServerFailure());
@@ -67,7 +66,6 @@ class ChatRepositoryImpl implements ChatRepository {
       try{
         print(model.toJson());
         final response = await remoteData.recoverPassword(model);
-        // localData.cacheUser(model);
         return Right(response);
       } on ServerException{
         return Left(ServerFailure());
@@ -84,7 +82,6 @@ class ChatRepositoryImpl implements ChatRepository {
       try{
         print(model.toJson());
         final response = await remoteData.changePassword(model);
-        // localData.cacheUser(model);
         return Right(response);
       } on ServerException{
         return Left(ServerFailure());
@@ -96,13 +93,25 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Either<Failure, Register>> getCacheUser() async{
-  try {
-      final user = await localData.getUserData();
-      return Right(user);
-    } on CacheException {
-      return Left(CacheFailure());
+  Future<Either<Failure, ApiSuccess>> refreshToken() async{
+    final authToken = await localData.getAuthToken();
+    if (authToken != null) {
+      if (await networkInfo.isConnected) {
+        try {
+          final authObject = await remoteData.refreshToken(authToken);
+          localData.cacheAuthToken(authObject);
+          return right(authToken);
+        } on ServerException {
+          return left(ServerFailure());
+        } on CacheException{
+          return left(CacheFailure());
+        }
+      }else{
+        return Left(ServerFailure());
+      }
+      
+    }else{
+      return Left(UnAuthenticatedFailure());
     }
   }
-  
 }

@@ -60,12 +60,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           password_confirmation: e.passwordConfirmed
         );
         yield RegisterState.loading();
-        try {
-          await user(RegisterParams(model: model));
-          yield RegisterState.success();
-        } catch (_) {
-          yield RegisterState.failure();
-        }
+        final regesterEither = await user(RegisterParams(model: model));
+        yield* regesterEither.fold(
+          (failure) async*{
+            yield RegisterState.failure();
+          },
+          (success) async*{
+            yield RegisterState.success();
+          }
+        );
       },
     );
   }

@@ -40,12 +40,14 @@ class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> 
       },
       submit: (e) async*{
         ChangeModel model = ChangeModel(pin: e.pin, password: e.password);
-        try {
-          await userPassword(ChangeParams(model: model));
-          yield ChangePasswordState.success();
-        } catch (_) {
-          yield ChangePasswordState.failure();
-        }
+        final changeEither = await userPassword(ChangeParams(model: model));
+        yield* changeEither.fold(
+          (failure) async*{
+            yield ChangePasswordState.failure();
+          },
+          (success) async*{
+            yield ChangePasswordState.success();
+          });
       }
     );
   }

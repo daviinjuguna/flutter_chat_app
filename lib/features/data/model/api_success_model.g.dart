@@ -8,17 +8,17 @@ part of 'api_success_model.dart';
 
 ApiSuccessModel _$ApiSuccessModelFromJson(Map<String, dynamic> json) {
   return ApiSuccessModel(
-    tokenType: json['tokenType'] as String,
-    expiresIn: json['expiresIn'] as int,
-    accessToken: json['accessToken'] as String,
-    refreshToken: json['refreshToken'] as String,
+    token_type: json['token_type'] as String,
+    expires_in: json['expires_in'] as int,
+    access_token: json['access_token'] as String,
+    refresh_token: json['refresh_token'] as String,
   );
 }
 
 Map<String, dynamic> _$ApiSuccessModelToJson(ApiSuccessModel instance) =>
     <String, dynamic>{
-      'tokenType': instance.tokenType,
-      'expiresIn': instance.expiresIn,
-      'accessToken': instance.accessToken,
-      'refreshToken': instance.refreshToken,
+      'token_type': instance.token_type,
+      'expires_in': instance.expires_in,
+      'access_token': instance.access_token,
+      'refresh_token': instance.refresh_token,
     };

@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutterchatapp/features/domain/usecase/check_first_time.dart';
-import 'package:flutterchatapp/features/domain/usecase/check_login.dart';
+import 'package:flutterchatapp/core/usecase/usecase.dart';
+import 'package:flutterchatapp/features/domain/usecase/check_token.dart';
+import 'package:flutterchatapp/features/domain/usecase/refresh_token.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,12 +15,12 @@ part 'auth_bloc.freezed.dart';
 
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final CheckFirstTime checkFirstTime;
-  final CheckLogin checkLogin;
+  final CheckToken checkToken;
+  final RefreshTokenUseCase refreshToken;
 
   AuthBloc({
-    @required this.checkFirstTime,
-    @required this.checkLogin}) : super(AuthState.authInitial());
+    @required this.checkToken,
+    @required this.refreshToken}) : super(AuthState.authInitial());
 
   @override
   Stream<AuthState> mapEventToState(
@@ -27,16 +28,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     yield* event.map(
       started: (e)async*{
-        final isFirstTime = await checkFirstTime();
-        if (isFirstTime) {
-          yield AuthState.authFailure();//not authenticaded since entered app first time 
+        final tokenPresent = await checkToken();
+        if (tokenPresent) {
+          yield AuthState.authSuccess();
         }else{
-          final checkIsLoggedIn = await checkLogin();
-          if (checkIsLoggedIn) {
-            yield AuthState.authSuccess();
-          }else{
-            yield AuthState.authFailure();
-          }
+          yield AuthState.authFailure();
         }
       },
       loggedIn: (e)async*{
@@ -45,6 +41,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       loggedOut: (e)async*{
         yield AuthState.authFailure();
         //TODO implement logout
+      }, 
+      refreshToken: (e)async* {
+        final refreshEither = await refreshToken(NoParams());
+        yield* refreshEither.fold(
+          (failure) async*{
+            yield AuthState.authFailure();
+          },
+          (success) async*{
+            yield AuthState.authSuccess();
+          });
       },
     );
   }

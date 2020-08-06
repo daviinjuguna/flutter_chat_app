@@ -21,7 +21,8 @@ class _$ChatApiService extends ChatApiService {
     final $url = '/api/login';
     final $body = body;
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<dynamic, dynamic>($request,
+        requestConverter: FormUrlEncodedConverter.requestFactory);
   }
 
   @override
@@ -29,15 +30,17 @@ class _$ChatApiService extends ChatApiService {
     final $url = '/api/register';
     final $body = body;
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<dynamic, dynamic>($request,
+        requestConverter: FormUrlEncodedConverter.requestFactory);
   }
 
   @override
-  Future<Response<dynamic>> refreshToken(Map<String, dynamic> body) {
+  Future<Response<dynamic>> refreshToken(String refreshToken) {
     final $url = '/api/refresh';
-    final $body = body;
+    final $body = <String, dynamic>{'refresh_token': refreshToken};
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<dynamic, dynamic>($request,
+        requestConverter: FormUrlEncodedConverter.requestFactory);
   }
 
   @override
@@ -45,7 +48,8 @@ class _$ChatApiService extends ChatApiService {
     final $url = '/api/recover';
     final $body = body;
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<dynamic, dynamic>($request,
+        requestConverter: FormUrlEncodedConverter.requestFactory);
   }
 
   @override
@@ -53,6 +57,7 @@ class _$ChatApiService extends ChatApiService {
     final $url = '/api/change';
     final $body = body;
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<dynamic, dynamic>($request,
+        requestConverter: FormUrlEncodedConverter.requestFactory);
   }
 }

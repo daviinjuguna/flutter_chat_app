@@ -3,10 +3,10 @@ import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 @injectable
-class CheckLogin {
+class CheckToken {
   final CheckAppState appState;
 
-  CheckLogin({@required this.appState});
+  CheckToken({@required this.appState});
 
   Future<bool> call() {
     return appState.userLoggedIn();

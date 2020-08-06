@@ -39,3 +39,8 @@ class PermissionNeveAskedFailure extends Failure {
   @override
   List<Object> get props => [];
 }
+
+class UnAuthenticatedFailure extends Failure {
+  @override
+  List<Object> get props => [];
+}
