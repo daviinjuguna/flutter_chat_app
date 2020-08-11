@@ -1,23 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:flutterchatapp/features/domain/entities/change_password.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'change_password_model.g.dart';
 
 @JsonSerializable()
-class ChangePasswordModel extends ChangePassword {
-  final String success;
-  final String message;
+class ChangePasswordModel {
 
-  ChangePasswordModel({@required this.success, @required this.message})
-  :super(message:message,
-  success:success);
+  @JsonKey(name:"success")
+  String success;
+  @JsonKey(name: "message")
+  String message;
 
-  @override
-  List<Object> get props => [message,success];
+  ChangePasswordModel({this.success, this.message});
 
   factory ChangePasswordModel.fromJson(Map<String, dynamic> json) =>
       _$ChangePasswordModelFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$ChangePasswordModelToJson(this);
 }

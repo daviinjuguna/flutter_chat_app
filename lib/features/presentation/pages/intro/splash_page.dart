@@ -11,7 +11,7 @@ class SplashPage extends StatelessWidget {
       listener: (BuildContext context, AuthState state) { 
         state.map(
           authInitial: (_){},
-          authSuccess: (_){},//TODO Route to HomePage,
+          authSuccess: (_)=> ExtendedNavigator.of(context).replace(Routes.dashBoardPage),
           authFailure: (_) => ExtendedNavigator.of(context).pushIntroPage()
         );
       },

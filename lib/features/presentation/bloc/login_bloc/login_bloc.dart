@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutterchatapp/core/utils/validators.dart';
-import 'package:flutterchatapp/features/data/model/login_model.dart';
-import 'package:flutterchatapp/features/domain/usecase/login_user.dart';
+import 'package:flutterchatapp/features/domain/repository/auth_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,9 +13,9 @@ part 'login_bloc.freezed.dart';
 
 @injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final LoginUser user;
-  
-  LoginBloc({@required this.user}) : assert(user != null),super(LoginState.initial());
+  final AuthRepository repository;
+  LoginBloc({@required this.repository}) :assert(repository != null),
+   super(LoginState.initial());
 
   @override
   Stream<LoginState> mapEventToState(
@@ -42,10 +41,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       },
       loginPressed: (e)async*{
-        LoginModel model = LoginModel(email: e.email, password: e.password);
         yield LoginState.loading();
-        final loginEither = await user(LoginParams(model: model));
-        yield* loginEither.fold(
+        final loginEither = await repository.loginUser(e.email, e.password);
+        loginEither.fold(
           (failure) async*{
             yield LoginState.failure();
           },

@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutterchatapp/core/usecase/usecase.dart';
-import 'package:flutterchatapp/features/domain/usecase/check_token.dart';
-import 'package:flutterchatapp/features/domain/usecase/refresh_token.dart';
+import 'package:flutterchatapp/features/domain/usecase/check_login.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,12 +13,9 @@ part 'auth_bloc.freezed.dart';
 
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final CheckToken checkToken;
-  final RefreshTokenUseCase refreshToken;
+  final CheckLogin isLoggedIn;
 
-  AuthBloc({
-    @required this.checkToken,
-    @required this.refreshToken}) : super(AuthState.authInitial());
+  AuthBloc({@required this.isLoggedIn}) : super(AuthState.authInitial());
 
   @override
   Stream<AuthState> mapEventToState(
@@ -28,8 +23,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     yield* event.map(
       started: (e)async*{
-        final tokenPresent = await checkToken();
-        if (tokenPresent) {
+        final userIsLoggedIn = await isLoggedIn();
+        if (userIsLoggedIn) {
           yield AuthState.authSuccess();
         }else{
           yield AuthState.authFailure();
@@ -43,14 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         //TODO implement logout
       }, 
       refreshToken: (e)async* {
-        final refreshEither = await refreshToken(NoParams());
-        yield* refreshEither.fold(
-          (failure) async*{
-            yield AuthState.authFailure();
-          },
-          (success) async*{
-            yield AuthState.authSuccess();
-          });
+        //TODO implement refreshToken
       },
     );
   }

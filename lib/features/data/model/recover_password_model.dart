@@ -1,24 +1,19 @@
-import 'package:flutterchatapp/features/domain/entities/recover_password.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'recover_password_model.g.dart';
 
 @JsonSerializable()
-class RecoverPasswordModel extends RecoverPassword {
-  final int pin;
-  final String message;
+class RecoverPasswordModel {
 
-  RecoverPasswordModel({
-    @required this.pin, 
-    @required this.message});
+  @JsonKey(name:"pin")
+  int pin;
+  @JsonKey(name: "message")
+  String message;
 
-  @override
-  List<Object> get props => [
-    pin,message
-  ];
+  RecoverPasswordModel({this.pin, this.message});
 
   factory RecoverPasswordModel.fromJson(Map<String, dynamic> json) =>
       _$RecoverPasswordModelFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$RecoverPasswordModelToJson(this);
 }

@@ -12,7 +12,7 @@ class CheckAppState {
 
 
   Future<bool> userLoggedIn() async {
-    final authToken = sharedPreferences.getString(CACHE_AUTH_TOKEN);
+    final authToken = sharedPreferences.getString("access_token");
     if (authToken != null) {
       return true;
     } else {
