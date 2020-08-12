@@ -7,25 +7,25 @@ import 'package:dio/dio.dart';
 
 part 'rest_client.g.dart';
 
-@RestApi(baseUrl: "https://fde627d32ed7.ngrok.io/")
+@RestApi(baseUrl: "https://e7ba0ac93eff.ngrok.io")
 @LazySingleton()
 abstract class RestClient {
 
   @factoryMethod
    factory RestClient(Dio dio){
-    dio.options = BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
+    // dio.options = BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
     dio.options.headers["Accept"] = "application/json";
-    return _RestClient(dio, baseUrl:"https://fde627d32ed7.ngrok.io/");
+    return _RestClient(dio, baseUrl:"https://e7ba0ac93eff.ngrok.io");
   }
   
-  @POST("api/login")
+  @POST("/api/login")
   @FormUrlEncoded()
   Future<AuthModel> loginUser(
     @Field("email") String email,
     @Field("password") String password
   );
 
-  @POST("api/register")
+  @POST("/api/register")
   @FormUrlEncoded()
   Future<AuthModel> registerUser(
     @Field("name") String name,
@@ -34,20 +34,20 @@ abstract class RestClient {
     @Field("password_confirmation") String passwordConfirmation
   );
 
-  @POST("api/recover")
+  @POST("/api/recover")
   @FormUrlEncoded()
   Future<RecoverPasswordModel> recoverPassword(
     @Field("email") String email
   );
 
-  @POST("api/change")
+  @POST("/api/change")
   @FormUrlEncoded()
   Future<ChangePasswordModel>changePassword(
     @Field("pin") int pin,
     @Field("password") String password
   );
 
-  @POST("api/refresh")
+  @POST("/api/refresh")
   @FormUrlEncoded()
   Future<AuthModel> refreshToken(
     @Field("refresh_token") String refreshToken

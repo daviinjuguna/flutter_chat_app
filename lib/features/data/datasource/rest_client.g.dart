@@ -9,7 +9,7 @@ part of 'rest_client.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://fde627d32ed7.ngrok.io /';
+    this.baseUrl ??= 'https://e7ba0ac93eff.ngrok.io';
   }
 
   final Dio _dio;
@@ -25,7 +25,7 @@ class _RestClient implements RestClient {
     final _data = {'email': email, 'password': password};
     _data.removeWhere((k, v) => v == null);
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'api/login',
+        '/api/login',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -54,7 +54,7 @@ class _RestClient implements RestClient {
     };
     _data.removeWhere((k, v) => v == null);
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'api/register',
+        '/api/register',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -75,7 +75,7 @@ class _RestClient implements RestClient {
     final _data = {'email': email};
     _data.removeWhere((k, v) => v == null);
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'api/recover',
+        '/api/recover',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -97,7 +97,7 @@ class _RestClient implements RestClient {
     final _data = {'pin': pin, 'password': password};
     _data.removeWhere((k, v) => v == null);
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'api/change',
+        '/api/change',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -118,7 +118,7 @@ class _RestClient implements RestClient {
     final _data = {'refresh_token': refreshToken};
     _data.removeWhere((k, v) => v == null);
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'api/refresh',
+        '/api/refresh',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

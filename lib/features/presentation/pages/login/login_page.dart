@@ -67,14 +67,16 @@ class _LoginPageState extends State<LoginPage> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
+                  backgroundColor: Colors.redAccent,
                   content: errorFlushbar(
-                    "Sorry, Signing in failed"//message
+                    "Sorry, Sign in failed"//message
                   )
                 ),
               );
             }
             if (state.isSuccess) {
-            BlocProvider.of<AuthBloc>(context).add(AuthEvent.loggedIn());
+            getIt<AuthBloc>().add(AuthEvent.loggedIn());
+            ExtendedNavigator.of(context).replace(Routes.dashBoardPage);
           }
           },
           builder: (BuildContext context, LoginState state) { 

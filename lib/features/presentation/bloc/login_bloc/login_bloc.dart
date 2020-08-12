@@ -43,7 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       loginPressed: (e)async*{
         yield LoginState.loading();
         final loginEither = await repository.loginUser(e.email, e.password);
-        loginEither.fold(
+        yield* loginEither.fold(
           (failure) async*{
             yield LoginState.failure();
           },
