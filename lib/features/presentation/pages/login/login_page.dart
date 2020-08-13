@@ -8,7 +8,7 @@ import 'package:flutterchatapp/features/presentation/bloc/auth_bloc/auth_bloc.da
 import 'package:flutterchatapp/features/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:flutterchatapp/features/presentation/widgets/components/already_have_an_account_check.dart';
 import 'package:flutterchatapp/features/presentation/widgets/components/background.dart';
-import 'package:flutterchatapp/features/presentation/widgets/components/flushbar.dart';
+import 'package:flutterchatapp/features/presentation/widgets/components/custom_flushbar.dart';
 import 'package:flutterchatapp/features/presentation/widgets/components/input_decoration.dart';
 import 'package:flutterchatapp/features/presentation/widgets/components/primary_buttorn.dart';
 import 'package:flutterchatapp/injection.dart';
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  backgroundColor: Colors.redAccent,
+                  backgroundColor: Colors.red[400],
                   content: errorFlushbar(
                     "Sorry, Sign in failed"//message
                   )

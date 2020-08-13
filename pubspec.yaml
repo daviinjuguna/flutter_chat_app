@@ -42,7 +42,7 @@ dependencies:
   path_provider: ^1.6.11
   flutter_statusbarcolor: ^0.2.3
   line_awesome_flutter: ^1.0.1
-  dio: ^3.0.9
+  dio: ^3.0.10
   bubble: ^1.1.9+1
   flushbar: ^1.10.4
   retrofit:
@@ -58,8 +58,8 @@ dev_dependencies:
     sdk: flutter
   auto_route_generator: ^0.6.8
   build_runner:
-  freezed: ^0.11.4
-  json_serializable: ^3.3.0
+  freezed: ^0.11.5
+  json_serializable: ^3.4.0
   injectable_generator: ^1.0.4
   retrofit_generator:
 

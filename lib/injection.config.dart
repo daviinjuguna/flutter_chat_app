@@ -38,7 +38,6 @@ Future<GetIt> $initGetIt(
       () => injectionModule.dataConnectionChecker);
   gh.lazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(get<DataConnectionChecker>()));
-  gh.factory<RegisterBloc>(() => RegisterBloc());
   final sharedPreferences = await injectionModule.prefs;
   gh.factory<SharedPreferences>(() => sharedPreferences);
   gh.factory<String>(() => injectionModule.baseUrl, instanceName: 'BaseUrl');
@@ -55,6 +54,8 @@ Future<GetIt> $initGetIt(
   gh.lazySingleton<Dio>(
       () => injectionModule.dio(get<String>(instanceName: 'BaseUrl')));
   gh.factory<LoginBloc>(() => LoginBloc(repository: get<AuthRepository>()));
+  gh.factory<RegisterBloc>(
+      () => RegisterBloc(repository: get<AuthRepository>()));
   gh.lazySingleton<RestClient>(() => RestClient(get<Dio>()));
   gh.factory<AuthBloc>(() => AuthBloc(isLoggedIn: get<CheckLogin>()));
   return get;
