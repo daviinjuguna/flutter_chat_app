@@ -130,4 +130,22 @@ class _RestClient implements RestClient {
     final value = AuthModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  logout(accessToken) async {
+    ArgumentError.checkNotNull(accessToken, 'accessToken');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    await _dio.request<void>('/api/logout',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{r'Authorization': accessToken},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    return null;
+  }
 }

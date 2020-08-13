@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class AuthLocalDataSource{
   Future<void> cacheAuthToken(AuthModel model);
   Future<AuthModel> getAuthToken();
+  Future<void> deleteCachedToken();
 }
 
 @LazySingleton(as: AuthLocalDataSource)
@@ -35,6 +36,16 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
       json.encode(model.accessToken));
     } catch (e) {
       throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> deleteCachedToken() {
+    String accessToken = sharedPreferences.getString("access_token");
+    if (accessToken != null){
+      return sharedPreferences.clear();
+    }else{
+      return null;
     }
   }  
 }

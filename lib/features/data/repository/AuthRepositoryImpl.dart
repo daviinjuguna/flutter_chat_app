@@ -55,4 +55,50 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, ApiSuccessModel>> logout() async{
+    final accessToken = localDataSource.getAuthToken();
+    if(accessToken != null){
+     if (await networkInfo.isConnected) {
+       try {
+        await remoteDataSource.logout(await accessToken);
+        localDataSource.deleteCachedToken();
+        ApiSuccessModel apiSuccessModel = new ApiSuccessModel(success: true, message: "Logout success");
+        return Right(apiSuccessModel);
+       } on ServerException {
+         return Left(ServerFailure());
+       }on CacheException{
+         return Left(CacheFailure());
+       }
+     } else {
+       return Left(ServerFailure());
+     }
+    }else{
+      return Left(UnAuthenticatedFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ApiSuccessModel>> refreshToken() async {
+     final accessToken = localDataSource.getAuthToken();
+    if(accessToken != null){
+     if (await networkInfo.isConnected) {
+       try {
+         final response = await remoteDataSource.refreshToken(await accessToken);
+         localDataSource.cacheAuthToken(response.data);
+         ApiSuccessModel apiSuccessModel = new ApiSuccessModel(success: true, message: "Refresh success");
+         return Right(apiSuccessModel);
+       }on ServerException {
+         return Left(ServerFailure());
+       }on CacheException{
+         return Left(CacheFailure());
+       }
+     } else {
+       return Left(ServerFailure());
+     }
+    }else{
+      return Left(UnAuthenticatedFailure());
+    }
+  }
 }

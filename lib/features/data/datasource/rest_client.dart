@@ -52,4 +52,10 @@ abstract class RestClient {
   Future<AuthModel> refreshToken(
     @Field("refresh_token") String refreshToken
   );
+
+  @POST("/api/logout")
+  @FormUrlEncoded()
+  Future<void> logout(
+    @Header("Authorization") String accessToken
+  );
 }
