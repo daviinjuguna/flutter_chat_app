@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 SnackBar(
                   backgroundColor: Colors.red[400],
                   content: errorFlushbar(
-                    "Sorry, Sign Up failed"//message
+                    "Sorry, Sign up failed"//message
                   )
                 ),
               );

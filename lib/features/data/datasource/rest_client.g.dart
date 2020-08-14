@@ -9,7 +9,7 @@ part of 'rest_client.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://e7ba0ac93eff.ngrok.io';
+    this.baseUrl ??= 'https://807218d8fe43.ngrok.io';
   }
 
   final Dio _dio;

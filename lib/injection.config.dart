@@ -57,7 +57,8 @@ Future<GetIt> $initGetIt(
   gh.factory<RegisterBloc>(
       () => RegisterBloc(repository: get<AuthRepository>()));
   gh.lazySingleton<RestClient>(() => RestClient(get<Dio>()));
-  gh.factory<AuthBloc>(() => AuthBloc(isLoggedIn: get<CheckLogin>()));
+  gh.factory<AuthBloc>(() => AuthBloc(
+      isLoggedIn: get<CheckLogin>(), repository: get<AuthRepository>()));
   return get;
 }
 

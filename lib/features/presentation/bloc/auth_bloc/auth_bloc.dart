@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutterchatapp/features/domain/repository/auth_repository.dart';
 import 'package:flutterchatapp/features/domain/usecase/check_login.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -14,8 +15,12 @@ part 'auth_bloc.freezed.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final CheckLogin isLoggedIn;
+  final AuthRepository repository;
 
-  AuthBloc({@required this.isLoggedIn}) : super(AuthState.authInitial());
+  AuthBloc({
+    @required this.isLoggedIn,
+    @required this.repository}) : assert(repository != null),
+    super(AuthState.authInitial());
 
   @override
   Stream<AuthState> mapEventToState(
@@ -34,8 +39,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthState.authSuccess();
       },
       loggedOut: (e)async*{
-        yield AuthState.authFailure();
-        //TODO implement logout
+        final logoutEither = await repository.logout();
+        yield* logoutEither.fold(
+          (failure) async*{
+            print("Logout Error");
+          },
+          (success) async*{
+            yield AuthState.authFailure(); //auth failure is not authenticated..so when logged out u are not authenticated
+          }
+        );
       }, 
       refreshToken: (e)async* {
         //TODO implement refreshToken

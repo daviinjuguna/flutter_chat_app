@@ -15,7 +15,7 @@ abstract class InjectionModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   @Named("BaseUrl")
-  String get baseUrl => 'https://e7ba0ac93eff.ngrok.io';
+  String get baseUrl => 'https://807218d8fe43.ngrok.io';
   
   // url here will be injected 
   @lazySingleton

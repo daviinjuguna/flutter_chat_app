@@ -20,22 +20,22 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
   AuthLocalDataSourceImpl({@required this.sharedPreferences});
 
   @override
-  Future<AuthModel> getAuthToken(){
-    String accessToken = sharedPreferences.getString("access_token");
-    if (accessToken != null){
-      return Future.value(AuthModel.fromJson(json.decode(accessToken)));
-    }else{
-      return null;
-    }
-  }
-
-  @override
   Future<void> cacheAuthToken(AuthModel model) {
     try {
       return sharedPreferences.setString("access_token", 
       json.encode(model.accessToken));
     } catch (e) {
       throw CacheException();
+    }
+  }
+  
+  @override
+  Future<AuthModel> getAuthToken(){
+    String accessToken = sharedPreferences.getString("access_token");
+    if (accessToken != null){
+      return Future.value(AuthModel.fromJson(json.decode(accessToken)));
+    }else{
+      return null;
     }
   }
 

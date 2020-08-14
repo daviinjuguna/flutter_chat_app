@@ -7,15 +7,15 @@ import 'package:dio/dio.dart';
 
 part 'rest_client.g.dart';
 
-@RestApi(baseUrl: "https://e7ba0ac93eff.ngrok.io")
+@RestApi(baseUrl: "https://807218d8fe43.ngrok.io")
 @LazySingleton()
 abstract class RestClient {
 
   @factoryMethod
-   factory RestClient(Dio dio){
+   factory RestClient(Dio dio,){
     // dio.options = BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
     dio.options.headers["Accept"] = "application/json";
-    return _RestClient(dio, baseUrl:"https://e7ba0ac93eff.ngrok.io");
+    return _RestClient(dio, baseUrl:"https://807218d8fe43.ngrok.io");
   }
   
   @POST("/api/login")

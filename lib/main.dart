@@ -58,7 +58,6 @@ class MyApp extends StatelessWidget {
         ),
         builder: ExtendedNavigator.builder<Router>(router: Router()),
         debugShowCheckedModeBanner: false,
-        
       ),
     );
   }
