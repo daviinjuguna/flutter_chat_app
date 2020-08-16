@@ -63,7 +63,7 @@ class _RestClient implements RestClient {
             contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
-    final value = AuthModel.fromJson(_result.data);
+    final value = UserModel.fromJson(_result.data);
     return value;
   }
 

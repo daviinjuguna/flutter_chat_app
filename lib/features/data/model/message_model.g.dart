@@ -1,26 +1,37 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'conversation_messages.dart';
+part of 'message_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ConversationMessages _$ConversationMessagesFromJson(Map<String, dynamic> json) {
-  return ConversationMessages(
-    id: json['id'] as int,
-    body: json['body'] as String,
-    read: json['read'] as int,
-    userId: json['user_id'] as int,
-    conversationId: json['conversation_id'] as int,
-    createdAt: json['created_at'] as String,
-    updatedAt: json['updated_at'] as String,
+MessageModel _$MessageModelFromJson(Map<String, dynamic> json) {
+  return MessageModel(
+    data: json['data'] == null
+        ? null
+        : Data.fromJson(json['data'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$ConversationMessagesToJson(
-        ConversationMessages instance) =>
+Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
     <String, dynamic>{
+      'data': instance.data,
+    };
+
+Data _$DataFromJson(Map<String, dynamic> json) {
+  return Data(
+    body: json['body'] as String,
+    read: json['read'] as bool,
+    userId: json['user_id'] as int,
+    conversationId: json['conversation_id'] as int,
+    updatedAt: json['updated_at'] as String,
+    createdAt: json['created_at'] as String,
+    id: json['id'] as int,
+  );
+}
+
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'id': instance.id,
       'body': instance.body,
       'read': instance.read,

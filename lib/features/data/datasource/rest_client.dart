@@ -1,6 +1,7 @@
 import 'package:flutterchatapp/features/data/model/auth_model.dart';
 import 'package:flutterchatapp/features/data/model/change_password_model.dart';
 import 'package:flutterchatapp/features/data/model/recover_password_model.dart';
+import 'package:flutterchatapp/features/data/model/user_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -27,7 +28,7 @@ abstract class RestClient {
 
   @POST("/api/register")
   @FormUrlEncoded()
-  Future<AuthModel> registerUser(
+  Future<UserModel> registerUser(
     @Field("name") String name,
     @Field("email") String email,
     @Field("password") String password,

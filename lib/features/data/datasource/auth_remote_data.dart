@@ -4,12 +4,13 @@ import 'package:flutterchatapp/features/data/datasource/rest_client.dart';
 import 'package:flutterchatapp/features/data/model/auth_model.dart';
 import 'package:flutterchatapp/features/data/model/change_password_model.dart';
 import 'package:flutterchatapp/features/data/model/recover_password_model.dart';
+import 'package:flutterchatapp/features/data/model/user_model.dart';
 import 'package:flutterchatapp/features/domain/entities/base_model.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class AuthRemoteDataSource{
   Future<BaseModel<AuthModel>> loginUser(String email,String password);
-  Future<BaseModel<AuthModel>> registerUser(
+  Future<BaseModel<UserModel>> registerUser(
     String name,
     String email,
     String password,
@@ -43,8 +44,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   }
 
   @override
-  Future<BaseModel<AuthModel>> registerUser(String name, String email, String password, String passwordConfirmation) async{
-    AuthModel response;
+  Future<BaseModel<UserModel>> registerUser(String name, String email, String password, String passwordConfirmation) async{
+    UserModel response;
     try {
       response = await client.registerUser(name, email, password, passwordConfirmation);
     } catch (error,stacktrace) {

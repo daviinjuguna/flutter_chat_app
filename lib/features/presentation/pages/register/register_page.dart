@@ -83,8 +83,16 @@ class _RegisterPageState extends State<RegisterPage> {
               );
             }
             if (state.isSuccess) {
-            getIt<AuthBloc>().add(AuthEvent.loggedIn());
-            ExtendedNavigator.of(context).replace(Routes.dashBoardPage);
+              Scaffold.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.green,
+                  content: successFlushbar(
+                    "Go to Sign in page and Sign in with the credentials"//Success
+                  )
+                )
+              );
           }
           },
           builder: (context, state) {

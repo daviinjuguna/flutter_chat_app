@@ -43,7 +43,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
   Future<void> deleteCachedToken() {
     String accessToken = sharedPreferences.getString("access_token");
     if (accessToken != null){
-      return sharedPreferences.clear();
+      return sharedPreferences.remove("access_token");
     }else{
       return null;
     }

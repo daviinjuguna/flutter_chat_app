@@ -57,6 +57,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         final registerEither = await repository.registerUser(e.name, e.email, e.password, e.passwordConfirmed);
         yield* registerEither.fold(
           (failure) async*{
+            print("Error");
             yield RegisterState.failure();
           },
           (success)async*{

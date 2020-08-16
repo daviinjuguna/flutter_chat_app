@@ -42,8 +42,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, ApiSuccessModel>> registerUser(String name, String email, String password, String passwordConfirmation) async{
     if (await networkInfo.isConnected) {
       try {
-        final registerSuccessModel = await remoteDataSource.registerUser(name, email, password, passwordConfirmation);
-        localDataSource.cacheAuthToken(registerSuccessModel.data);
+        await remoteDataSource.registerUser(name, email, password, passwordConfirmation);
+        
         ApiSuccessModel apiSuccessModel = new ApiSuccessModel(success: true, message: "Register success");
         return Right(apiSuccessModel);
       } on ServerException {
