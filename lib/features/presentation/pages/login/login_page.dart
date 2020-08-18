@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                 SnackBar(
                   backgroundColor: Colors.red[400],
                   content: errorFlushbar(
-                    "Sorry, Sign in failed"//message
+                    "Sorry, Sign in failed, check your credentials"//message
                   )
                 ),
               );

@@ -23,7 +23,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
   Future<void> cacheAuthToken(AuthModel model) {
     try {
       return sharedPreferences.setString("access_token", 
-      json.encode(model.accessToken));
+      json.encode(model));
     } catch (e) {
       throw CacheException();
     }
@@ -43,7 +43,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
   Future<void> deleteCachedToken() {
     String accessToken = sharedPreferences.getString("access_token");
     if (accessToken != null){
-      return sharedPreferences.remove("access_token");
+      return sharedPreferences.clear();
     }else{
       return null;
     }

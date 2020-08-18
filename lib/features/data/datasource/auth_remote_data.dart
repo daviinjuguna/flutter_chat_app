@@ -1,107 +1,109 @@
-import 'package:dio/dio.dart';
-import 'package:flutterchatapp/core/errors/ServerFailure.dart';
-import 'package:flutterchatapp/features/data/datasource/rest_client.dart';
-import 'package:flutterchatapp/features/data/model/auth_model.dart';
-import 'package:flutterchatapp/features/data/model/change_password_model.dart';
-import 'package:flutterchatapp/features/data/model/recover_password_model.dart';
-import 'package:flutterchatapp/features/data/model/user_model.dart';
-import 'package:flutterchatapp/features/domain/entities/base_model.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../core/errors/exceptions.dart';
+import '../model/auth_model.dart';
+import '../model/change_password_model.dart';
+import '../model/get_conversation_model.dart';
+import '../model/recover_password_model.dart';
+import '../model/user_model.dart';
+import 'api.dart';
+
 abstract class AuthRemoteDataSource{
-  Future<BaseModel<AuthModel>> loginUser(String email,String password);
-  Future<BaseModel<UserModel>> registerUser(
+  // Future<BaseModel<AuthModel>> loginUser(String email,String password);
+  Future<AuthModel> loginUser(String email,String password);
+  Future<UserModel> registerUser(
     String name,
     String email,
     String password,
     String passwordConfirmation);
-  Future<BaseModel<RecoverPasswordModel>> recoverPassword(String email,);
-  Future<BaseModel<ChangePasswordModel>> changePassword(int pin,String password);
-  Future<BaseModel<void>> logout(AuthModel model);
-  Future<BaseModel<AuthModel>> refreshToken(AuthModel model);
+  Future<RecoverPasswordModel> recoverPassword(String email,);
+  Future<ChangePasswordModel> changePassword(int pin,String password);
+  Future<void>logout(AuthModel model);
+  Future<AuthModel> refreshToken(AuthModel model);
+  Future<GetConversationModel> getConversation(AuthModel model);
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
-  Dio dio;
-  RestClient client;
-
-  AuthRemoteDataSourceImpl(){
-    dio = new Dio();
-    client = new RestClient(dio);
-  }
   
+  final ApiService service;
+
+  AuthRemoteDataSourceImpl({@required this.service});
+
   @override
-  Future<BaseModel<AuthModel>> loginUser(String email, String password) async{
-    AuthModel response;
-    try {
-      response = await client.loginUser(email, password);
-    } catch (error,stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return BaseModel()..setException(ServerError.withError(error:error));
+  Future<AuthModel> loginUser(String email, String password) async{
+    final response = await service.loginUser(email, password);
+    if (response.statusCode == 200) {
+      return AuthModel.fromJson(response.body);
+    } else {
+      throw ServerException();
     }
-    return BaseModel()..data = response;
   }
 
   @override
-  Future<BaseModel<UserModel>> registerUser(String name, String email, String password, String passwordConfirmation) async{
-    UserModel response;
-    try {
-      response = await client.registerUser(name, email, password, passwordConfirmation);
-    } catch (error,stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return BaseModel()..setException(ServerError.withError(error:error));
+  Future<UserModel> registerUser(String name, String email, String password, String passwordConfirmation) async{
+    final response = await service.registerUser(name, email, password, passwordConfirmation);
+    if (response.statusCode == 201) {
+      return UserModel.fromJson(response.body);
+    } else {
+      throw ServerException();
     }
-    return BaseModel()..data = response;
   }
 
   @override
-  Future<BaseModel<RecoverPasswordModel>> recoverPassword(String email) async{
-    RecoverPasswordModel response;
-    try {
-      response = await client.recoverPassword(email);
-    } catch (error,stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return BaseModel()..setException(ServerError.withError(error:error));
+  Future<RecoverPasswordModel> recoverPassword(String email) async{
+    final response = await service.recoverPassword(email);
+    if (response.statusCode == 200) {
+      return RecoverPasswordModel.fromJson(response.body);
+    } else {
+      throw ServerException();
     }
-    return BaseModel()..data = response;
   }
 
   @override
-  Future<BaseModel<ChangePasswordModel>> changePassword(int pin, String password) async{
-    ChangePasswordModel response;
-    try {
-      response = await client.changePassword(pin, password);
-    } catch (error,stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return BaseModel()..setException(ServerError.withError(error:error));
+  Future<ChangePasswordModel> changePassword(int pin, String password) async{
+   final response = await service.changePassword(pin, password);
+   if (response.statusCode == 200) {
+      return ChangePasswordModel.fromJson(response.body);
+    } else {
+      throw ServerException();
     }
-    return BaseModel()..data = response;
   }
 
   @override
-  Future<BaseModel<void>> logout(AuthModel model) async{
-    void response;
-    try {
-       response = await client.logout("Bearer ${model.accessToken}");
-    } catch (error,stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return BaseModel()..setException(ServerError.withError(error:error));
+  Future<void> logout(AuthModel model) async{
+   final response = await service.logout('Bearer ${model.accessToken}');
+   if (response.statusCode == 204) {
+      return "Logout Success";
+    }else if (response.statusCode == 401) {
+      throw UnAuthenticatedException();
+    } else {
+      throw ServerException();
     }
-
-    return  BaseModel()..data = response;
   }
 
   @override
-  Future<BaseModel<AuthModel>> refreshToken(AuthModel model) async{
-    AuthModel response;
-    try {
-      response = await client.refreshToken(model.refreshToken);
-    } catch (error,stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return BaseModel()..setException(ServerError.withError(error:error));
+  Future<AuthModel> refreshToken(AuthModel model) async{
+    final response = await service.refreshToken(model.refreshToken);
+    if (response.statusCode == 200) {
+      return AuthModel.fromJson(response.body);
+    }else if (response.statusCode == 401) {
+      throw UnAuthenticatedException();
+    } else {
+      throw ServerException();
     }
+  }
 
-    return BaseModel()..data = response;
+  @override
+  Future<GetConversationModel> getConversation(AuthModel model)async{
+    final response = await service.getConversation('Bearer ${model.accessToken}');
+   if (response.statusCode == 200) {
+      return GetConversationModel.fromJson(response.body);
+    }else if (response.statusCode == 401) {
+      throw UnAuthenticatedException();
+    } else {
+      throw ServerException();
+    }
   }
 }

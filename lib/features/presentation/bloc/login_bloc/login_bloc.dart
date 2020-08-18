@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutterchatapp/core/errors/failures.dart';
 import 'package:flutterchatapp/core/utils/validators.dart';
 import 'package:flutterchatapp/features/domain/repository/auth_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

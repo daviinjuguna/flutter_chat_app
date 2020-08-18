@@ -516,8 +516,16 @@ class _$AuthStateTearOff {
   }
 
 // ignore: unused_element
-  _AuthFailure authFailure() {
-    return const _AuthFailure();
+  _AuthLoggedOut authLoggedOut() {
+    return const _AuthLoggedOut();
+  }
+
+// ignore: unused_element
+  _Error error(String error, dynamic message) {
+    return _Error(
+      error,
+      message,
+    );
   }
 }
 
@@ -529,26 +537,30 @@ mixin _$AuthState {
   Result when<Result extends Object>({
     @required Result authInitial(),
     @required Result authSuccess(),
-    @required Result authFailure(),
+    @required Result authLoggedOut(),
+    @required Result error(String error, dynamic message),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result authInitial(),
     Result authSuccess(),
-    Result authFailure(),
+    Result authLoggedOut(),
+    Result error(String error, dynamic message),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result authInitial(_AuthInitial value),
     @required Result authSuccess(_AuthSuccess value),
-    @required Result authFailure(_AuthFailure value),
+    @required Result authLoggedOut(_AuthLoggedOut value),
+    @required Result error(_Error value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result authInitial(_AuthInitial value),
     Result authSuccess(_AuthSuccess value),
-    Result authFailure(_AuthFailure value),
+    Result authLoggedOut(_AuthLoggedOut value),
+    Result error(_Error value),
     @required Result orElse(),
   });
 }
@@ -609,11 +621,13 @@ class _$_AuthInitial with DiagnosticableTreeMixin implements _AuthInitial {
   Result when<Result extends Object>({
     @required Result authInitial(),
     @required Result authSuccess(),
-    @required Result authFailure(),
+    @required Result authLoggedOut(),
+    @required Result error(String error, dynamic message),
   }) {
     assert(authInitial != null);
     assert(authSuccess != null);
-    assert(authFailure != null);
+    assert(authLoggedOut != null);
+    assert(error != null);
     return authInitial();
   }
 
@@ -622,7 +636,8 @@ class _$_AuthInitial with DiagnosticableTreeMixin implements _AuthInitial {
   Result maybeWhen<Result extends Object>({
     Result authInitial(),
     Result authSuccess(),
-    Result authFailure(),
+    Result authLoggedOut(),
+    Result error(String error, dynamic message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -637,11 +652,13 @@ class _$_AuthInitial with DiagnosticableTreeMixin implements _AuthInitial {
   Result map<Result extends Object>({
     @required Result authInitial(_AuthInitial value),
     @required Result authSuccess(_AuthSuccess value),
-    @required Result authFailure(_AuthFailure value),
+    @required Result authLoggedOut(_AuthLoggedOut value),
+    @required Result error(_Error value),
   }) {
     assert(authInitial != null);
     assert(authSuccess != null);
-    assert(authFailure != null);
+    assert(authLoggedOut != null);
+    assert(error != null);
     return authInitial(this);
   }
 
@@ -650,7 +667,8 @@ class _$_AuthInitial with DiagnosticableTreeMixin implements _AuthInitial {
   Result maybeMap<Result extends Object>({
     Result authInitial(_AuthInitial value),
     Result authSuccess(_AuthSuccess value),
-    Result authFailure(_AuthFailure value),
+    Result authLoggedOut(_AuthLoggedOut value),
+    Result error(_Error value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -708,11 +726,13 @@ class _$_AuthSuccess with DiagnosticableTreeMixin implements _AuthSuccess {
   Result when<Result extends Object>({
     @required Result authInitial(),
     @required Result authSuccess(),
-    @required Result authFailure(),
+    @required Result authLoggedOut(),
+    @required Result error(String error, dynamic message),
   }) {
     assert(authInitial != null);
     assert(authSuccess != null);
-    assert(authFailure != null);
+    assert(authLoggedOut != null);
+    assert(error != null);
     return authSuccess();
   }
 
@@ -721,7 +741,8 @@ class _$_AuthSuccess with DiagnosticableTreeMixin implements _AuthSuccess {
   Result maybeWhen<Result extends Object>({
     Result authInitial(),
     Result authSuccess(),
-    Result authFailure(),
+    Result authLoggedOut(),
+    Result error(String error, dynamic message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -736,11 +757,13 @@ class _$_AuthSuccess with DiagnosticableTreeMixin implements _AuthSuccess {
   Result map<Result extends Object>({
     @required Result authInitial(_AuthInitial value),
     @required Result authSuccess(_AuthSuccess value),
-    @required Result authFailure(_AuthFailure value),
+    @required Result authLoggedOut(_AuthLoggedOut value),
+    @required Result error(_Error value),
   }) {
     assert(authInitial != null);
     assert(authSuccess != null);
-    assert(authFailure != null);
+    assert(authLoggedOut != null);
+    assert(error != null);
     return authSuccess(this);
   }
 
@@ -749,7 +772,8 @@ class _$_AuthSuccess with DiagnosticableTreeMixin implements _AuthSuccess {
   Result maybeMap<Result extends Object>({
     Result authInitial(_AuthInitial value),
     Result authSuccess(_AuthSuccess value),
-    Result authFailure(_AuthFailure value),
+    Result authLoggedOut(_AuthLoggedOut value),
+    Result error(_Error value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -764,39 +788,39 @@ abstract class _AuthSuccess implements AuthState {
   const factory _AuthSuccess() = _$_AuthSuccess;
 }
 
-abstract class _$AuthFailureCopyWith<$Res> {
-  factory _$AuthFailureCopyWith(
-          _AuthFailure value, $Res Function(_AuthFailure) then) =
-      __$AuthFailureCopyWithImpl<$Res>;
+abstract class _$AuthLoggedOutCopyWith<$Res> {
+  factory _$AuthLoggedOutCopyWith(
+          _AuthLoggedOut value, $Res Function(_AuthLoggedOut) then) =
+      __$AuthLoggedOutCopyWithImpl<$Res>;
 }
 
-class __$AuthFailureCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
-    implements _$AuthFailureCopyWith<$Res> {
-  __$AuthFailureCopyWithImpl(
-      _AuthFailure _value, $Res Function(_AuthFailure) _then)
-      : super(_value, (v) => _then(v as _AuthFailure));
+class __$AuthLoggedOutCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
+    implements _$AuthLoggedOutCopyWith<$Res> {
+  __$AuthLoggedOutCopyWithImpl(
+      _AuthLoggedOut _value, $Res Function(_AuthLoggedOut) _then)
+      : super(_value, (v) => _then(v as _AuthLoggedOut));
 
   @override
-  _AuthFailure get _value => super._value as _AuthFailure;
+  _AuthLoggedOut get _value => super._value as _AuthLoggedOut;
 }
 
-class _$_AuthFailure with DiagnosticableTreeMixin implements _AuthFailure {
-  const _$_AuthFailure();
+class _$_AuthLoggedOut with DiagnosticableTreeMixin implements _AuthLoggedOut {
+  const _$_AuthLoggedOut();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuthState.authFailure()';
+    return 'AuthState.authLoggedOut()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'AuthState.authFailure'));
+    properties..add(DiagnosticsProperty('type', 'AuthState.authLoggedOut'));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _AuthFailure);
+    return identical(this, other) || (other is _AuthLoggedOut);
   }
 
   @override
@@ -807,12 +831,14 @@ class _$_AuthFailure with DiagnosticableTreeMixin implements _AuthFailure {
   Result when<Result extends Object>({
     @required Result authInitial(),
     @required Result authSuccess(),
-    @required Result authFailure(),
+    @required Result authLoggedOut(),
+    @required Result error(String error, dynamic message),
   }) {
     assert(authInitial != null);
     assert(authSuccess != null);
-    assert(authFailure != null);
-    return authFailure();
+    assert(authLoggedOut != null);
+    assert(error != null);
+    return authLoggedOut();
   }
 
   @override
@@ -820,12 +846,13 @@ class _$_AuthFailure with DiagnosticableTreeMixin implements _AuthFailure {
   Result maybeWhen<Result extends Object>({
     Result authInitial(),
     Result authSuccess(),
-    Result authFailure(),
+    Result authLoggedOut(),
+    Result error(String error, dynamic message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (authFailure != null) {
-      return authFailure();
+    if (authLoggedOut != null) {
+      return authLoggedOut();
     }
     return orElse();
   }
@@ -835,12 +862,14 @@ class _$_AuthFailure with DiagnosticableTreeMixin implements _AuthFailure {
   Result map<Result extends Object>({
     @required Result authInitial(_AuthInitial value),
     @required Result authSuccess(_AuthSuccess value),
-    @required Result authFailure(_AuthFailure value),
+    @required Result authLoggedOut(_AuthLoggedOut value),
+    @required Result error(_Error value),
   }) {
     assert(authInitial != null);
     assert(authSuccess != null);
-    assert(authFailure != null);
-    return authFailure(this);
+    assert(authLoggedOut != null);
+    assert(error != null);
+    return authLoggedOut(this);
   }
 
   @override
@@ -848,17 +877,159 @@ class _$_AuthFailure with DiagnosticableTreeMixin implements _AuthFailure {
   Result maybeMap<Result extends Object>({
     Result authInitial(_AuthInitial value),
     Result authSuccess(_AuthSuccess value),
-    Result authFailure(_AuthFailure value),
+    Result authLoggedOut(_AuthLoggedOut value),
+    Result error(_Error value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (authFailure != null) {
-      return authFailure(this);
+    if (authLoggedOut != null) {
+      return authLoggedOut(this);
     }
     return orElse();
   }
 }
 
-abstract class _AuthFailure implements AuthState {
-  const factory _AuthFailure() = _$_AuthFailure;
+abstract class _AuthLoggedOut implements AuthState {
+  const factory _AuthLoggedOut() = _$_AuthLoggedOut;
+}
+
+abstract class _$ErrorCopyWith<$Res> {
+  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) then) =
+      __$ErrorCopyWithImpl<$Res>;
+  $Res call({String error, dynamic message});
+}
+
+class __$ErrorCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
+    implements _$ErrorCopyWith<$Res> {
+  __$ErrorCopyWithImpl(_Error _value, $Res Function(_Error) _then)
+      : super(_value, (v) => _then(v as _Error));
+
+  @override
+  _Error get _value => super._value as _Error;
+
+  @override
+  $Res call({
+    Object error = freezed,
+    Object message = freezed,
+  }) {
+    return _then(_Error(
+      error == freezed ? _value.error : error as String,
+      message == freezed ? _value.message : message,
+    ));
+  }
+}
+
+class _$_Error with DiagnosticableTreeMixin implements _Error {
+  const _$_Error(this.error, this.message)
+      : assert(error != null),
+        assert(message != null);
+
+  @override
+  final String error;
+  @override
+  final dynamic message;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AuthState.error(error: $error, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthState.error'))
+      ..add(DiagnosticsProperty('error', error))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Error &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(message);
+
+  @override
+  _$ErrorCopyWith<_Error> get copyWith =>
+      __$ErrorCopyWithImpl<_Error>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result authInitial(),
+    @required Result authSuccess(),
+    @required Result authLoggedOut(),
+    @required Result error(String error, dynamic message),
+  }) {
+    assert(authInitial != null);
+    assert(authSuccess != null);
+    assert(authLoggedOut != null);
+    assert(error != null);
+    return error(this.error, message);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result authInitial(),
+    Result authSuccess(),
+    Result authLoggedOut(),
+    Result error(String error, dynamic message),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(this.error, message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result authInitial(_AuthInitial value),
+    @required Result authSuccess(_AuthSuccess value),
+    @required Result authLoggedOut(_AuthLoggedOut value),
+    @required Result error(_Error value),
+  }) {
+    assert(authInitial != null);
+    assert(authSuccess != null);
+    assert(authLoggedOut != null);
+    assert(error != null);
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result authInitial(_AuthInitial value),
+    Result authSuccess(_AuthSuccess value),
+    Result authLoggedOut(_AuthLoggedOut value),
+    Result error(_Error value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Error implements AuthState {
+  const factory _Error(String error, dynamic message) = _$_Error;
+
+  String get error;
+  dynamic get message;
+  _$ErrorCopyWith<_Error> get copyWith;
 }

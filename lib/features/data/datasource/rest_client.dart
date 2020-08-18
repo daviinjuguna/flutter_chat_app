@@ -1,5 +1,6 @@
 import 'package:flutterchatapp/features/data/model/auth_model.dart';
 import 'package:flutterchatapp/features/data/model/change_password_model.dart';
+import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
 import 'package:flutterchatapp/features/data/model/recover_password_model.dart';
 import 'package:flutterchatapp/features/data/model/user_model.dart';
 import 'package:injectable/injectable.dart';
@@ -8,7 +9,7 @@ import 'package:dio/dio.dart';
 
 part 'rest_client.g.dart';
 
-@RestApi(baseUrl: "https://807218d8fe43.ngrok.io")
+@RestApi(baseUrl: "Musa nimevumilia sana")
 @LazySingleton()
 abstract class RestClient {
 
@@ -16,7 +17,7 @@ abstract class RestClient {
    factory RestClient(Dio dio,){
     // dio.options = BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
     dio.options.headers["Accept"] = "application/json";
-    return _RestClient(dio, baseUrl:"https://807218d8fe43.ngrok.io");
+    return _RestClient(dio, /*baseUrl:"https://2a8e5b2fdb5a.ngrok.io"*/);
   }
   
   @POST("/api/login")
@@ -57,6 +58,11 @@ abstract class RestClient {
   @POST("/api/logout")
   @FormUrlEncoded()
   Future<void> logout(
+    @Header("Authorization") String accessToken
+  );
+
+  @GET("/api/conversations")
+  Future<GetConversationModel> getConversation(
     @Header("Authorization") String accessToken
   );
 }

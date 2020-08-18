@@ -3,15 +3,15 @@ import 'package:json_annotation/json_annotation.dart';
 part 'get_conversation_model.g.dart';
 
 @JsonSerializable()
-class GetConversation {
+class GetConversationModel {
   List<Data> data;
 
-  GetConversation({this.data});
+  GetConversationModel({this.data});
 
-  factory GetConversation.fromJson(Map<String, dynamic> json) =>
-      _$GetConversationFromJson(json);
+  factory GetConversationModel.fromJson(Map<String, dynamic> json) =>
+      _$GetConversationModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetConversationToJson(this);
+  Map<String, dynamic> toJson() => _$GetConversationModelToJson(this);
 }
 
 @JsonSerializable()

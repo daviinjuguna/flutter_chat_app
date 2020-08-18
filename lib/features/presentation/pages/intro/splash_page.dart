@@ -12,7 +12,9 @@ class SplashPage extends StatelessWidget {//handle authentication
         state.map(
           authInitial: (_){},
           authSuccess: (_)=> ExtendedNavigator.of(context).pushDashBoardPage(),
-          authFailure: (_) => ExtendedNavigator.of(context).pushIntroPage()
+          authLoggedOut: (_) => ExtendedNavigator.of(context).pushIntroPage(), 
+          error: (_){},
+          
         );
       },
       child: Container(),

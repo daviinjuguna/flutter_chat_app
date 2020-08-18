@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutterchatapp/core/errors/failures.dart';
 import 'package:flutterchatapp/features/domain/repository/auth_repository.dart';
 import 'package:flutterchatapp/features/domain/usecase/check_login.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -32,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (userIsLoggedIn) {
           yield AuthState.authSuccess();
         }else{
-          yield AuthState.authFailure();
+          yield AuthState.authLoggedOut();
         }
       },
       loggedIn: (e)async*{
@@ -43,9 +44,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield* logoutEither.fold(
           (failure) async*{
             print("Logout Error");
+            yield AuthState.error("error", _mapFailureToMessage);
           },
           (success) async*{
-            yield AuthState.authFailure(); //auth failure is not authenticated..so when logged out u are not authenticated
+            yield AuthState.authLoggedOut(); //auth failure is not authenticated..so when logged out u are not authenticated
           }
         );
       }, 
@@ -53,5 +55,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         //TODO implement refreshToken
       },
     );
+  }
+
+  String _mapFailureToMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case ServerFailure:
+        return "Server Failure";
+      case CacheFailure:
+        return "Cache Failure";
+      case UnAuthenticatedFailure:
+        return "Unauthenticated";
+      default:
+        return 'Unexpected Error';
+    }
   }
 }

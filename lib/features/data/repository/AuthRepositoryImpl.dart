@@ -25,7 +25,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (await networkInfo.isConnected) {
       try {
         final loginSuccessModel = await remoteDataSource.loginUser(email, password);
-        localDataSource.cacheAuthToken(loginSuccessModel.data);
+        localDataSource.cacheAuthToken(loginSuccessModel);
         ApiSuccessModel apiSuccessModel = new ApiSuccessModel(success: true, message: "Login success");
         return Right(apiSuccessModel);
       } on ServerException {
@@ -86,7 +86,7 @@ class AuthRepositoryImpl implements AuthRepository {
      if (await networkInfo.isConnected) {
        try {
          final response = await remoteDataSource.refreshToken(await accessToken);
-         localDataSource.cacheAuthToken(response.data);
+         localDataSource.cacheAuthToken(response);
          ApiSuccessModel apiSuccessModel = new ApiSuccessModel(success: true, message: "Refresh success");
          return Right(apiSuccessModel);
        }on ServerException {

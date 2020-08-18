@@ -9,7 +9,7 @@ part of 'rest_client.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://807218d8fe43.ngrok.io';
+    this.baseUrl ??= 'Musa nimevumilia sana';
   }
 
   final Dio _dio;
@@ -147,5 +147,24 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     return null;
+  }
+
+  @override
+  getConversation(accessToken) async {
+    ArgumentError.checkNotNull(accessToken, 'accessToken');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/api/conversations',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': accessToken},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GetConversationModel.fromJson(_result.data);
+    return value;
   }
 }

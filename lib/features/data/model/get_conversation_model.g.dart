@@ -6,8 +6,8 @@ part of 'get_conversation_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetConversation _$GetConversationFromJson(Map<String, dynamic> json) {
-  return GetConversation(
+GetConversationModel _$GetConversationModelFromJson(Map<String, dynamic> json) {
+  return GetConversationModel(
     data: (json['data'] as List)
         ?.map(
             (e) => e == null ? null : Data.fromJson(e as Map<String, dynamic>))
@@ -15,7 +15,8 @@ GetConversation _$GetConversationFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$GetConversationToJson(GetConversation instance) =>
+Map<String, dynamic> _$GetConversationModelToJson(
+        GetConversationModel instance) =>
     <String, dynamic>{
       'data': instance.data,
     };

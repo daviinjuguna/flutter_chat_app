@@ -2,6 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:flutterchatapp/features/presentation/pages/conversation/conversation_page.dart';
+import 'package:flutterchatapp/features/presentation/pages/profile/profile_page.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class DashBoardPage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
           children: <Widget>[
             ConversationPage(),
             Container(color: Style.darkColor,),
-            Container(color: Style.darkColor,),
+            ProfilePage(),
           ],
         ),
       ),
@@ -70,3 +71,4 @@ class _DashBoardPageState extends State<DashBoardPage> {
     super.dispose();
   }
 }
+
