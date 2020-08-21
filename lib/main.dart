@@ -36,10 +36,10 @@ class MyApp extends StatelessWidget {
     //     systemNavigationBarIconBrightness: Brightness.dark,
     // ));
     return BlocProvider(
-      create: (BuildContext context)=>getIt<AuthBloc>()..add(AuthEvent.started()),
+      create: (context)=>getIt<AuthBloc>()..add(const AuthEvent.started()),
       child: MaterialApp(
         title: 'Lets Chat',
-        theme: ThemeData(
+        theme: ThemeData.light().copyWith(
           primaryColor: Style.primaryColor,
           primaryColorLight: Colors.white,
           textSelectionColor: Colors.white,
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
             onBackground: Colors.black, onError:Colors.redAccent,
             brightness: Brightness.light),
         ),
-        builder: ExtendedNavigator.builder<Router>(router: Router()),
+        builder: ExtendedNavigator(router: Router()),
         debugShowCheckedModeBanner: false,
       ),
     );

@@ -89,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 SnackBar(
                   backgroundColor: Colors.green,
                   content: successFlushbar(
-                    "Go to Sign in page and Sign in with the credentials"//Success
+                    "Go to Sign in page and sign in with the credentials"//Success
                   )
                 )
               );

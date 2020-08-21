@@ -6,14 +6,21 @@ import 'package:flutterchatapp/core/utils/size_config.dart';
 import 'package:flutterchatapp/features/presentation/widgets/chat/friends_chat_card.dart';
 import 'package:flutterchatapp/features/presentation/widgets/chat/my_chart_card.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
 
 class ChatPage extends StatefulWidget {
+  final ConversationData data;
+
+  const ChatPage({this.data}); //Conversation data
   @override
-  _ChatPageState createState() => _ChatPageState();
+  _ChatPageState createState() => _ChatPageState(this.data);
 }
 
 class _ChatPageState extends State<ChatPage> {
+  final ConversationData data;
   final ScrollController _controller = ScrollController();
+
+  _ChatPageState(this.data);
 
   @override
   void initState() {
@@ -32,28 +39,25 @@ class _ChatPageState extends State<ChatPage> {
           icon: Icon(LineAwesomeIcons.angle_left,color: Style.primaryColor,),
           onPressed: ()=>ExtendedNavigator.of(context).pop()
         ),
-        title: Text("Friends Name",style: TextStyle(color: Style.primaryColor),),
+        title: Text('${data.user.name}',
+          style: TextStyle(color: Style.primaryColor),),
         centerTitle: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Expanded(
-            child:ListView(
+            child:ListView.builder(
               controller: _controller,
               padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.safeBlockHorizontal*4,
                 vertical: SizeConfig.safeBlockVertical*3),
-              children: <Widget>[
-                FriendChatCard(),
+              itemCount: data.messages.length,
+              itemBuilder: (context, index) => data.messages[index].userId == data.user.id ?
+                FriendChatCard(messages: data.messages[index],):
                 MyChatCard(),
-                FriendChatCard(),
-                MyChatCard(),
-                FriendChatCard(),
-                MyChatCard(),
-                FriendChatCard(),
-                MyChatCard(),
-              ],
+                // FriendChatCard(),
+                // MyChatCard(),
             ),
           ),
           Container(

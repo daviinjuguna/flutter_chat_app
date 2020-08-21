@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutterchatapp/core/errors/failures.dart';
 import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
 import 'package:flutterchatapp/features/domain/entities/base_model.dart';
@@ -17,7 +18,7 @@ part 'get_conversation_bloc.freezed.dart';
 class GetConversationBloc extends Bloc<GetConversationEvent, GetConversationState> {
   final ChatRepository repository;
   GetConversationBloc({@required this.repository}) : assert(repository != null),
-    super(GetConversationState.initial());
+    super(GetConversationInitial());
 
   @override
   Stream<GetConversationState> mapEventToState(
@@ -25,13 +26,16 @@ class GetConversationBloc extends Bloc<GetConversationEvent, GetConversationStat
   ) async* {
     yield* event.map(
       getConversation: (e)async*{
+        yield GetConversationLoading();
         final conversationEither = await repository.getConversation();
         yield* conversationEither.fold(
           (failure) async*{
-            yield GetConversationState.error("error", _mapFailureToMessage);
+            // yield GetConversationState.error("error", _mapFailureToMessage);
+            yield GetConversationError(message: "Error manze, imecrash vinoma sanna");
           },
           (conversation) async*{
-            yield GetConversationState.success(conversation);
+            // yield GetConversationState.success(conversation.data);
+            yield GetConversationSeccess(data: conversation);
           }
         );
       }

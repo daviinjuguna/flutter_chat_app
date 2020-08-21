@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 part 'api.chopper.dart';
 
-@ChopperApi(baseUrl: 'https://a4dc56145a6b.ngrok.io/')
+@ChopperApi(baseUrl: 'https://a1d837f0cc0e.ngrok.io/')
 @LazySingleton()
 abstract class ApiService extends ChopperService {
   

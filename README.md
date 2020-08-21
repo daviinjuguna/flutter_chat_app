@@ -1,6 +1,6 @@
 # flutterchatapp
 
-A Chat App with laravel backed
+A Chat App with laravel backend
 
 ## Getting Started
 

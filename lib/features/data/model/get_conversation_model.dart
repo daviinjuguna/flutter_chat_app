@@ -4,7 +4,8 @@ part 'get_conversation_model.g.dart';
 
 @JsonSerializable()
 class GetConversationModel {
-  List<Data> data;
+  @JsonKey(name: "data")
+  List<ConversationData> data;
 
   GetConversationModel({this.data});
 
@@ -15,25 +16,31 @@ class GetConversationModel {
 }
 
 @JsonSerializable()
-class Data {
+class ConversationData {
+  @JsonKey(name: "id")
   int id;
   @JsonKey(name: 'created_at')
   String createdAt;
+  @JsonKey(name: "user")
   User user;
+  @JsonKey(name: "messages")
   List<Messages> messages;
 
-  Data({this.id, this.createdAt, this.user, this.messages});
+  ConversationData({this.id, this.createdAt, this.user, this.messages});
 
-   factory Data.fromJson(Map<String, dynamic> json) =>
-      _$DataFromJson(json);
+   factory ConversationData.fromJson(Map<String, dynamic> json) =>
+      _$ConversationDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DataToJson(this);
+  Map<String, dynamic> toJson() => _$ConversationDataToJson(this);
 }
 
 @JsonSerializable()
 class User {
+  @JsonKey(name: "id")
   int id;
+  @JsonKey(name: "name")
   String name;
+  @JsonKey(name: "email")
   String email;
   
 
@@ -47,10 +54,12 @@ class User {
 
 @JsonSerializable()
 class Messages {
+  @JsonKey(name: "id")
   int id;
+  @JsonKey(name: "body")
   String body;
+  @JsonKey(name: "read")
   int read;
-
   @JsonKey(name: 'user_id')
   int userId;
   @JsonKey(name: 'conversation_id')

@@ -22,8 +22,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
   @override
   Future<void> cacheAuthToken(AuthModel model) {
     try {
-      return sharedPreferences.setString("access_token", 
+      var acessToken = sharedPreferences.setString("access_token", 
       json.encode(model));
+      print(acessToken);
+      return acessToken;
     } catch (e) {
       throw CacheException();
     }
@@ -33,6 +35,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
   Future<AuthModel> getAuthToken(){
     String accessToken = sharedPreferences.getString("access_token");
     if (accessToken != null){
+      print(accessToken);
       return Future.value(AuthModel.fromJson(json.decode(accessToken)));
     }else{
       return null;

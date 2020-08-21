@@ -9,8 +9,9 @@ part of 'get_conversation_model.dart';
 GetConversationModel _$GetConversationModelFromJson(Map<String, dynamic> json) {
   return GetConversationModel(
     data: (json['data'] as List)
-        ?.map(
-            (e) => e == null ? null : Data.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null
+            ? null
+            : ConversationData.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
@@ -21,8 +22,8 @@ Map<String, dynamic> _$GetConversationModelToJson(
       'data': instance.data,
     };
 
-Data _$DataFromJson(Map<String, dynamic> json) {
-  return Data(
+ConversationData _$ConversationDataFromJson(Map<String, dynamic> json) {
+  return ConversationData(
     id: json['id'] as int,
     createdAt: json['created_at'] as String,
     user: json['user'] == null
@@ -35,7 +36,8 @@ Data _$DataFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+Map<String, dynamic> _$ConversationDataToJson(ConversationData instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'created_at': instance.createdAt,
       'user': instance.user,

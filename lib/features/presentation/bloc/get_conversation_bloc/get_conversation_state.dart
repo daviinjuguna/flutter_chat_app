@@ -1,9 +1,31 @@
 part of 'get_conversation_bloc.dart';
 
-@freezed
-abstract class GetConversationState with _$GetConversationState {
-  const factory GetConversationState.initial() = _Initial;
-  const factory GetConversationState.success(final GetConversationModel conversation) = _Success;
-  const factory GetConversationState.error(final String error,message) = _Error;
+abstract class GetConversationState extends Equatable {
+  const GetConversationState();
+  
+  @override
+  List<Object> get props => [];
 }
 
+class GetConversationInitial extends GetConversationState {
+  @override
+  List<Object> get props => [];
+}
+class GetConversationLoading extends GetConversationState {
+  @override
+  List<Object> get props => [];
+}
+class GetConversationSeccess extends GetConversationState {
+  final GetConversationModel data;
+
+  GetConversationSeccess({@required this.data});
+  @override
+  List<Object> get props => [data];
+}
+class GetConversationError extends GetConversationState {
+  final String message;
+
+  GetConversationError({@required this.message});
+  @override
+  List<Object> get props => [message];
+}

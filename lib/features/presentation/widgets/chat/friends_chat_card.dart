@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:flutterchatapp/core/utils/size_config.dart';
+import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
 
 class FriendChatCard extends StatelessWidget {
+  final Messages messages;
   const FriendChatCard({
-    Key key,
+    Key key,this.messages
   }) : super(key: key);
 
   @override
@@ -25,29 +27,31 @@ class FriendChatCard extends StatelessWidget {
           SizedBox(
             width:SizeConfig.safeBlockHorizontal * 2,
           ),
-          Container(
-            width: SizeConfig.screenWidth*.75,
-            padding: EdgeInsets.all(21),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Style.secondaryColor,
-                      Style.primaryColor,
-                      Style.primaryColor,
-                      Style.primaryColor,
-                      Style.primaryColor],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(28),
-                  topRight:Radius.circular(28),
-                  bottomRight: Radius.circular(28),
-                )
-            ),
-            child: Row(
-              children: <Widget>[
-                Expanded(child: Text("Hey meeehhn, mi ni mziii..papa fololo mwenyewe,manzee iyo stuff ya access token jo shieeettt",style: TextStyle(color: Colors.white),)),
-              ],
+          Expanded(
+            child: Container(
+              width: SizeConfig.screenWidth*.75,
+              padding: EdgeInsets.all(21),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Style.secondaryColor,
+                        Style.primaryColor,
+                        Style.primaryColor,
+                        Style.primaryColor,
+                        Style.primaryColor],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(28),
+                    topRight:Radius.circular(28),
+                    bottomRight: Radius.circular(28),
+                  )
+              ),
+              child: Row(
+                children: <Widget>[
+                  Expanded(child: Text("${messages.body}",style: TextStyle(color: Colors.white),)),
+                ],
+              ),
             ),
           ),
         ],
