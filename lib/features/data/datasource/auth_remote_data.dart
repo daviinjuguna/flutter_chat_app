@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterchatapp/features/data/model/post_message_model.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../core/errors/exceptions.dart';
@@ -22,6 +23,7 @@ abstract class AuthRemoteDataSource{
   Future<void>logout(AuthModel model);
   Future<AuthModel> refreshToken(AuthModel model);
   Future<GetConversationModel> getConversation(AuthModel model);
+  Future<GetConversationModel>postMessage(AuthModel model,String body,int conversationId);
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -99,6 +101,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   Future<GetConversationModel> getConversation(AuthModel model)async{
     final response = await service.getConversation('Bearer ${model.accessToken}');
    if (response.statusCode == 200) {
+      return GetConversationModel.fromJson(response.body);
+    }else if (response.statusCode == 401) {
+      throw UnAuthenticatedException();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<GetConversationModel> postMessage(AuthModel model, String body, int conversationId)async {
+    final response = await service.postMessage(
+      'Bearer ${model.accessToken}',
+      body,
+      conversationId
+    );
+    if (response.statusCode == 200) {//created response
       return GetConversationModel.fromJson(response.body);
     }else if (response.statusCode == 401) {
       throw UnAuthenticatedException();

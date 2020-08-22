@@ -49,6 +49,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     name: json['name'] as String,
     email: json['email'] as String,
+    imageUrl: json['picture'] as String,
   );
 }
 
@@ -56,6 +57,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'email': instance.email,
+      'picture': instance.imageUrl,
     };
 
 Messages _$MessagesFromJson(Map<String, dynamic> json) {

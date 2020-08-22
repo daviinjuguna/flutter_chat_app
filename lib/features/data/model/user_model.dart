@@ -19,8 +19,10 @@ class Data {
   int id;
   String name;
   String email;
+  @JsonKey(name: "picture")
+  String imageUrl;
 
-  Data({this.id, this.name, this.email,});
+  Data({this.id, this.name, this.email,this.imageUrl});
 
   factory Data.fromJson(Map<String, dynamic> json) =>
       _$DataFromJson(json);

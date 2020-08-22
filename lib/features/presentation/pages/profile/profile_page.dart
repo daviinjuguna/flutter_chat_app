@@ -19,8 +19,8 @@ class ProfilePage extends StatelessWidget {
         LineAwesomeIcons.arrow_left,color: Colors.white,
       ),
       onPressed: ()async{
-        getIt<AuthBloc>().add(AuthEvent.loggedOut());
-        ExtendedNavigator.of(context).replace(Routes.introPage);
+        await getIt<AuthBloc>().add(AuthEvent.loggedOut());
+         ExtendedNavigator.of(context).replace(Routes.introPage);
       }
       
     ),

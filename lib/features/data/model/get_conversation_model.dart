@@ -42,9 +42,11 @@ class User {
   String name;
   @JsonKey(name: "email")
   String email;
+  @JsonKey(name: "picture")
+  String imageUrl;
   
 
-  User({this.id, this.name, this.email,});
+  User({this.id, this.name, this.email,this.imageUrl});
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);

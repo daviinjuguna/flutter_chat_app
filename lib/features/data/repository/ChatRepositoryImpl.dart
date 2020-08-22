@@ -5,6 +5,7 @@ import 'package:flutterchatapp/core/network/network_info.dart';
 import 'package:flutterchatapp/features/data/datasource/auth_local_data.dart';
 import 'package:flutterchatapp/features/data/datasource/auth_remote_data.dart';
 import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
+import 'package:flutterchatapp/features/data/model/post_message_model.dart';
 import 'package:flutterchatapp/features/domain/repository/chat_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -35,5 +36,20 @@ class ChatRepositoryImp implements ChatRepository {
       return Left(UnAuthenticatedFailure());
     }
   }
-  
+
+  @override
+  Future<Either<Failure, GetConversationModel>> postMessage(String body, int conversationId) async{
+    final accessToken = localDataSource.getAuthToken();
+    if (accessToken != null) {
+      if (await networkInfo.isConnected) {
+        final message = await remoteDataSource.postMessage(await accessToken, body, conversationId);
+        return Right(message);
+      }else {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(UnAuthenticatedFailure());
+    }
+  }
+ 
 }

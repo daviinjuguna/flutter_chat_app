@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 part 'api.chopper.dart';
 
-@ChopperApi(baseUrl: 'https://a1d837f0cc0e.ngrok.io/')
+@ChopperApi(baseUrl: 'https://0f73eb6a7116.ngrok.io/')
 @LazySingleton()
 abstract class ApiService extends ChopperService {
   
@@ -54,6 +54,13 @@ abstract class ApiService extends ChopperService {
   @Get(path:"api/conversations")
   Future<Response> getConversation(
     @Header("Authorization") String accessToken
+  );
+
+  @Post(path: "api/messages")
+  Future<Response> postMessage(
+    @Header("Authorization") String accessToken,
+    @Field("body") String body,
+    @Field("conversation_id") int conversationId,
   );
 
   @factoryMethod

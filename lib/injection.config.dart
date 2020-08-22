@@ -24,6 +24,7 @@ import 'features/presentation/bloc/get_conversation_bloc/get_conversation_bloc.d
 import 'injection_module.dart';
 import 'features/presentation/bloc/login_bloc/login_bloc.dart';
 import 'core/network/network_info.dart';
+import 'features/presentation/bloc/post_bloc/post_message_bloc.dart';
 import 'features/presentation/bloc/register_bloc/register_bloc.dart';
 import 'features/data/datasource/rest_client.dart';
 
@@ -67,6 +68,8 @@ Future<GetIt> $initGetIt(
   gh.factory<GetConversationBloc>(
       () => GetConversationBloc(repository: get<ChatRepository>()));
   gh.factory<LoginBloc>(() => LoginBloc(repository: get<AuthRepository>()));
+  gh.factory<PostMessageBloc>(
+      () => PostMessageBloc(repository: get<ChatRepository>()));
   gh.factory<RegisterBloc>(
       () => RegisterBloc(repository: get<AuthRepository>()));
   gh.lazySingleton<RestClient>(() => RestClient(get<Dio>()));

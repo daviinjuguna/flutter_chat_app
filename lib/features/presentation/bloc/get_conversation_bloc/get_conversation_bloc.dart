@@ -31,7 +31,7 @@ class GetConversationBloc extends Bloc<GetConversationEvent, GetConversationStat
         yield* conversationEither.fold(
           (failure) async*{
             // yield GetConversationState.error("error", _mapFailureToMessage);
-            yield GetConversationError(message: "Error manze, imecrash vinoma sanna");
+            yield GetConversationError(message:_mapFailureToMessage(failure));
           },
           (conversation) async*{
             // yield GetConversationState.success(conversation.data);

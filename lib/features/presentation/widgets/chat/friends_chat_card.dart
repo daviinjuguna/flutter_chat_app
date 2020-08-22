@@ -5,8 +5,9 @@ import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
 
 class FriendChatCard extends StatelessWidget {
   final Messages messages;
+  final String imageUrl;
   const FriendChatCard({
-    Key key,this.messages
+    Key key,this.messages,this.imageUrl
   }) : super(key: key);
 
   @override
@@ -14,14 +15,15 @@ class FriendChatCard extends StatelessWidget {
     return Padding(
       padding:EdgeInsets.only(
         bottom: SizeConfig.safeBlockVertical,
-        top: SizeConfig.safeBlockVertical,
+        // top: SizeConfig.safeBlockVertical,
       ),
       child: Row(
         crossAxisAlignment:CrossAxisAlignment.end,
         children: <Widget>[
           CircleAvatar(
             backgroundImage: NetworkImage(
-              'https://picsum.photos/250?image=4',
+              imageUrl != null ?imageUrl
+              :'https://ramcotubular.com/wp-content/uploads/default-avatar.jpg',
             ),
           ),
           SizedBox(
@@ -31,6 +33,9 @@ class FriendChatCard extends StatelessWidget {
             child: Container(
               width: SizeConfig.screenWidth*.75,
               padding: EdgeInsets.all(21),
+              // margin: EdgeInsets.only(
+              //   bottom: SizeConfig.safeBlockVertical,
+              // ),
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                       colors: [Style.secondaryColor,

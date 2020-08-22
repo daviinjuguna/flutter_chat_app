@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterchatapp/core/routes/router.gr.dart';
 import 'package:flutterchatapp/features/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:flutterchatapp/features/presentation/pages/dashboard/dashboard_page.dart';
+import 'package:flutterchatapp/features/presentation/pages/intro/intro_page.dart';
+import 'package:flutterchatapp/features/presentation/widgets/components/custom_dialogue.dart';
 
 class SplashPage extends StatelessWidget {//handle authentication 
   @override

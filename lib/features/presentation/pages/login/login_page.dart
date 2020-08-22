@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
             }
             if (state.isSuccess) {
             getIt<AuthBloc>().add(AuthEvent.loggedIn());
-            ExtendedNavigator.of(context).replace(Routes.dashBoardPage);
+             ExtendedNavigator.of(context).replace(Routes.dashBoardPage);
           }
           },
           builder: (BuildContext context, LoginState state) { 
