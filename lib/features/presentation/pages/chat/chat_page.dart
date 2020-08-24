@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterchatapp/core/routes/router.gr.dart';
 import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:flutterchatapp/core/utils/size_config.dart';
-import 'package:flutterchatapp/features/data/model/post_message_model.dart';
 import 'package:flutterchatapp/features/presentation/bloc/post_bloc/post_message_bloc.dart';
 import 'package:flutterchatapp/features/presentation/widgets/chat/friends_chat_card.dart';
 import 'package:flutterchatapp/features/presentation/widgets/chat/my_chart_card.dart';
@@ -12,6 +12,8 @@ import 'package:flutterchatapp/features/presentation/widgets/components/custom_d
 import 'package:flutterchatapp/injection.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
+import 'package:flutterchatapp/features/presentation/bloc/update_messages_bloc/update_message_bloc.dart';
+
 
 class ChatPage extends StatefulWidget {
   final ConversationData data;
@@ -23,11 +25,11 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage>
     with AutomaticKeepAliveClientMixin {
-  ConversationData data = new ConversationData();
+  final ConversationData data;
   final ScrollController _controller = ScrollController();
   final TextEditingController _messageController = TextEditingController();
 
-  GetConversationModel messageModel;
+ 
 
   PostMessageBloc _bloc;
 
@@ -40,7 +42,10 @@ class _ChatPageState extends State<ChatPage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.jumpTo(_controller.position.maxScrollExtent);
     });
+
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -68,27 +73,11 @@ class _ChatPageState extends State<ChatPage>
             BlocBuilder<PostMessageBloc, PostMessageState>(
               builder: (context, state) {
                 if (state is PostMessageSuccess){//! ngooojaaaa hapa kuna nomaa sanna, ungekuja jana ngojaaaa
-                  return Expanded(
-                  child: ListView.builder(//TODO baadoo hii method badooo....
-                    controller: _controller,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.safeBlockHorizontal * 4,
-                        vertical: SizeConfig.safeBlockVertical * 3),
-                    itemCount: state.model.data.length,
-                    itemBuilder: (context, index) =>state.model.data[index]
-                                .messages[index].userId ==
-                            state.model.data[index].user.id
-                        ? FriendChatCard(
-                            messages: state.model.data[index].messages[index],
-                            imageUrl: state.model.data[index].user.imageUrl,
-                          )
-                        : MyChatCard(
-                            messages: state.model.data[index].messages[index],
-                          ), //TODO baddo ngooojaaaa..hapa bado..lazima nione vle ntaeka
-                    // FriendChatCard(),
-                    // MyChatCard(),S
-                  ),
-                  );
+                  // _messageController.clear();
+                  // _controller.jumpTo(_controller.position.maxScrollExtent);
+                  // data.messages.add(value):
+                  getIt<UpdateMessageBloc>().add(UpdateMessageEvent.updateMessage(state.model.data.single.messages.single));
+                  
                 }
                 //! hii iko sawa...usiguze
                 return Expanded(
@@ -115,8 +104,8 @@ class _ChatPageState extends State<ChatPage>
               },
             ),
             Container(
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.all(5),
+              padding: EdgeInsets.all(2),
+              margin: EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(32)),
               child: Row(
@@ -176,9 +165,9 @@ class _ChatPageState extends State<ChatPage>
 
   @override
   void dispose() {
-    _bloc.close();
+    // _bloc.close();
     super.dispose();
-    _controller.dispose();
+    // _controller.dispose();
   }
 
   _sendMessage() {

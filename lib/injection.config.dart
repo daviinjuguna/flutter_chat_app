@@ -27,6 +27,7 @@ import 'core/network/network_info.dart';
 import 'features/presentation/bloc/post_bloc/post_message_bloc.dart';
 import 'features/presentation/bloc/register_bloc/register_bloc.dart';
 import 'features/data/datasource/rest_client.dart';
+import 'features/presentation/bloc/update_messages_bloc/update_message_bloc.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -73,6 +74,7 @@ Future<GetIt> $initGetIt(
   gh.factory<RegisterBloc>(
       () => RegisterBloc(repository: get<AuthRepository>()));
   gh.lazySingleton<RestClient>(() => RestClient(get<Dio>()));
+  gh.factory<UpdateMessageBloc>(() => UpdateMessageBloc(get<ChatRepository>()));
   gh.factory<AuthBloc>(() => AuthBloc(
       isLoggedIn: get<CheckLogin>(), repository: get<AuthRepository>()));
   return get;

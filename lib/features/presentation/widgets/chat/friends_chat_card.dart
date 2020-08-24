@@ -21,6 +21,7 @@ class FriendChatCard extends StatelessWidget {
         crossAxisAlignment:CrossAxisAlignment.end,
         children: <Widget>[
           CircleAvatar(
+            radius: 15,
             backgroundImage: NetworkImage(
               imageUrl != null ?imageUrl
               :'https://ramcotubular.com/wp-content/uploads/default-avatar.jpg',
@@ -32,7 +33,7 @@ class FriendChatCard extends StatelessWidget {
           Expanded(
             child: Container(
               width: SizeConfig.screenWidth*.75,
-              padding: EdgeInsets.all(21),
+              padding: EdgeInsets.all(12),
               // margin: EdgeInsets.only(
               //   bottom: SizeConfig.safeBlockVertical,
               // ),

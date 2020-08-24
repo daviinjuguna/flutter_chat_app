@@ -18,7 +18,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> loginUser(String email, String password) {
-    final $url = 'https://0f73eb6a7116.ngrok.io/api/login';
+    final $url = '/api/login';
     final $body = <String, dynamic>{'email': email, 'password': password};
     final $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request,
@@ -28,7 +28,7 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> registerUser(
       String name, String email, String password, String passwordConfirmation) {
-    final $url = 'https://0f73eb6a7116.ngrok.io/api/register';
+    final $url = '/api/register';
     final $body = <String, dynamic>{
       'name': name,
       'email': email,
@@ -42,7 +42,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> logout(String accessToken) {
-    final $url = 'https://0f73eb6a7116.ngrok.io/api/logout';
+    final $url = '/api/logout';
     final $headers = {'Authorization': accessToken};
     final $request = Request('POST', $url, client.baseUrl, headers: $headers);
     return client.send<dynamic, dynamic>($request);
@@ -50,7 +50,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> recoverPassword(String email) {
-    final $url = 'https://0f73eb6a7116.ngrok.io/api/recover';
+    final $url = '/api/recover';
     final $body = <String, dynamic>{'email': email};
     final $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request,
@@ -59,7 +59,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> changePassword(int pin, String password) {
-    final $url = 'https://0f73eb6a7116.ngrok.io/api/change';
+    final $url = '/api/change';
     final $body = <String, dynamic>{'pin': pin, 'password': password};
     final $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request,
@@ -68,7 +68,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> refreshToken(String refreshToken) {
-    final $url = 'https://0f73eb6a7116.ngrok.io/api/refresh';
+    final $url = '/api/refresh';
     final $body = <String, dynamic>{'refresh_token': refreshToken};
     final $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request,
@@ -77,7 +77,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getConversation(String accessToken) {
-    final $url = 'https://0f73eb6a7116.ngrok.io/api/conversations';
+    final $url = '/api/conversations';
     final $headers = {'Authorization': accessToken};
     final $request = Request('GET', $url, client.baseUrl, headers: $headers);
     return client.send<dynamic, dynamic>($request);
@@ -86,7 +86,7 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> postMessage(
       String accessToken, String body, int conversationId) {
-    final $url = 'https://0f73eb6a7116.ngrok.io/api/messages';
+    final $url = '/api/messages';
     final $headers = {'Authorization': accessToken};
     final $body = <String, dynamic>{
       'body': body,

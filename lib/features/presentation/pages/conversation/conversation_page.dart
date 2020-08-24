@@ -6,6 +6,7 @@ import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:flutterchatapp/core/utils/size_config.dart';
 import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
 import 'package:flutterchatapp/features/presentation/bloc/get_conversation_bloc/get_conversation_bloc.dart';
+import 'package:flutterchatapp/features/presentation/bloc/post_bloc/post_message_bloc.dart';
 import 'package:flutterchatapp/features/presentation/widgets/components/custom_dialogue.dart';
 import 'package:flutterchatapp/features/presentation/widgets/conversation/conversation_card.dart';
 import 'package:flutterchatapp/features/presentation/widgets/conversation/list_selection.dart';
@@ -119,7 +120,7 @@ class _ConversationPageState extends State<ConversationPage> with AutomaticKeepA
     SizeConfig().init(context);
     return ListView.builder(
       itemCount:conversation.data.length,
-      padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 2),
+      padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 0.8),
       itemBuilder: (context,index)=>Column(
          children: <Widget>[
         ListTile(

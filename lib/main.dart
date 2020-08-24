@@ -12,13 +12,23 @@ import 'package:flutterchatapp/core/utils/simple_bloc_observer.dart';
 import 'package:flutterchatapp/features/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:flutterchatapp/injection.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logging/logging.dart';
+
 
 
 void main() async{ 
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   await configureInjection(Environment.prod);
+  _setUpLogging();
   runApp(MyApp());
+}
+
+void _setUpLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((event) {
+    print('${event.level.name}:${event.time}:${event.message}');
+  });
 }
 
 class MyApp extends StatelessWidget {

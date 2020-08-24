@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:flutterchatapp/core/utils/size_config.dart';
 import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
-import 'package:flutterchatapp/features/data/model/post_message_model.dart';
 
 class MyChatCard extends StatelessWidget {
   final Messages messages;
@@ -18,8 +17,8 @@ class MyChatCard extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Container(
-            width: SizeConfig.screenWidth*.75,
-            padding: EdgeInsets.all(21),
+            width: SizeConfig.screenWidth*.70,
+            padding: EdgeInsets.all(12),
             margin: EdgeInsets.only(
                 bottom: SizeConfig.safeBlockVertical,
             ),

@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:chopper/chopper.dart';
+import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:injectable/injectable.dart';
 
 part 'api.chopper.dart';
 
-@ChopperApi(baseUrl: 'https://0f73eb6a7116.ngrok.io/')
+@ChopperApi(baseUrl: '/')
 @LazySingleton()
 abstract class ApiService extends ChopperService {
   
@@ -66,7 +67,7 @@ abstract class ApiService extends ChopperService {
   @factoryMethod
   static ApiService create(){
     final client = ChopperClient(
-        // baseUrl: "",
+        baseUrl: BASE_URL,
         services: [_$ApiService()],
         converter: JsonConverter(),
         client: http.IOClient(

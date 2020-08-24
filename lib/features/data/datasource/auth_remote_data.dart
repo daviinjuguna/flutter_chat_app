@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterchatapp/features/data/model/post_message_model.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../core/errors/exceptions.dart';
@@ -46,7 +45,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   @override
   Future<UserModel> registerUser(String name, String email, String password, String passwordConfirmation) async{
     final response = await service.registerUser(name, email, password, passwordConfirmation);
-    if (response.statusCode == 201) {
+    if (response.statusCode == 201) {//user created
       return UserModel.fromJson(response.body);
     } else {
       throw ServerException();

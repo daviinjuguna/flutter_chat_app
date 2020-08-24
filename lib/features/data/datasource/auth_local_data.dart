@@ -24,7 +24,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
     try {
       var acessToken = sharedPreferences.setString("access_token", 
       json.encode(model));
-      print(acessToken);
+      // print(acessToken);
       return acessToken;
     } catch (e) {
       throw CacheException();
@@ -35,7 +35,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource{
   Future<AuthModel> getAuthToken(){
     String accessToken = sharedPreferences.getString("access_token");
     if (accessToken != null){
-      print(accessToken);
+      // print(accessToken);
       return Future.value(AuthModel.fromJson(json.decode(accessToken)));
     }else{
       return null;
