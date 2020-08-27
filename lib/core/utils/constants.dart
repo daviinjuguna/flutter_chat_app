@@ -23,4 +23,4 @@ class Style {
 // const String PERMISION_NEVER_ASKED =
 //     "permission denied- please enable it from app settings";
 
-const String BASE_URL ="https://6ac1d02b7615.ngrok.io";
+const String BASE_URL ="https://34025a352708.ngrok.io";

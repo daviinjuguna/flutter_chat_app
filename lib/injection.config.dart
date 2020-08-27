@@ -5,7 +5,6 @@
 // **************************************************************************
 
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,8 +25,6 @@ import 'features/presentation/bloc/login_bloc/login_bloc.dart';
 import 'core/network/network_info.dart';
 import 'features/presentation/bloc/post_bloc/post_message_bloc.dart';
 import 'features/presentation/bloc/register_bloc/register_bloc.dart';
-import 'features/data/datasource/rest_client.dart';
-import 'features/presentation/bloc/update_messages_bloc/update_message_bloc.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -64,8 +61,6 @@ Future<GetIt> $initGetIt(
   gh.lazySingleton<CheckAppState>(
       () => CheckAppState(sharedPreferences: get<SharedPreferences>()));
   gh.factory<CheckLogin>(() => CheckLogin(appState: get<CheckAppState>()));
-  gh.lazySingleton<Dio>(
-      () => injectionModule.dio(get<String>(instanceName: 'BaseUrl')));
   gh.factory<GetConversationBloc>(
       () => GetConversationBloc(repository: get<ChatRepository>()));
   gh.factory<LoginBloc>(() => LoginBloc(repository: get<AuthRepository>()));
@@ -73,8 +68,6 @@ Future<GetIt> $initGetIt(
       () => PostMessageBloc(repository: get<ChatRepository>()));
   gh.factory<RegisterBloc>(
       () => RegisterBloc(repository: get<AuthRepository>()));
-  gh.lazySingleton<RestClient>(() => RestClient(get<Dio>()));
-  gh.factory<UpdateMessageBloc>(() => UpdateMessageBloc(get<ChatRepository>()));
   gh.factory<AuthBloc>(() => AuthBloc(
       isLoggedIn: get<CheckLogin>(), repository: get<AuthRepository>()));
   return get;

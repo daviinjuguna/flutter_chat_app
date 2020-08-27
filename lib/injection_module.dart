@@ -1,5 +1,4 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,10 +14,5 @@ abstract class InjectionModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   @Named("BaseUrl")
-  String get baseUrl => 'eeeh asinata unataka nini?';
-  
-  // url here will be injected 
-  @lazySingleton
-  Dio dio(@Named('BaseUrl') String baseUrl) => Dio(BaseOptions(baseUrl: baseUrl));
-  
+  String get baseUrl => 'ooliskia wapi!!? ooooliskia wapi!!!???';
 }

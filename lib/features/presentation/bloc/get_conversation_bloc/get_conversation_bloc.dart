@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutterchatapp/core/errors/failures.dart';
-import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
-import 'package:flutterchatapp/features/domain/entities/base_model.dart';
+import 'package:flutterchatapp/features/data/model/conversation/conversation_model.dart';
 import 'package:flutterchatapp/features/domain/repository/chat_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -35,7 +34,7 @@ class GetConversationBloc extends Bloc<GetConversationEvent, GetConversationStat
           },
           (conversation) async*{
             // yield GetConversationState.success(conversation.data);
-            yield GetConversationSeccess(data: conversation);
+            yield GetConversationSeccess(conversation: conversation);
           }
         );
       }

@@ -10,11 +10,11 @@ abstract class PostMessageState extends Equatable {
 class PostMessageInitial extends PostMessageState {}
 class PostMessageLoading extends PostMessageState {}
 class PostMessageSuccess extends PostMessageState {
-  final GetConversationModel model;
+  final MessagesModel message;
 
-  PostMessageSuccess({@required this.model});
+  PostMessageSuccess({@required this.message});
   @override
-  List<Object> get props => [model];
+  List<Object> get props => [message];
 }
 class PostMessageError extends PostMessageState {
   final String message;

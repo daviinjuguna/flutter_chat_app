@@ -5,27 +5,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterchatapp/core/routes/router.gr.dart';
 import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:flutterchatapp/core/utils/size_config.dart';
+import 'package:flutterchatapp/features/data/model/conversation/conversation_model.dart';
+import 'package:flutterchatapp/features/data/model/conversation/message_model.dart';
 import 'package:flutterchatapp/features/presentation/bloc/post_bloc/post_message_bloc.dart';
 import 'package:flutterchatapp/features/presentation/widgets/chat/friends_chat_card.dart';
 import 'package:flutterchatapp/features/presentation/widgets/chat/my_chart_card.dart';
-import 'package:flutterchatapp/features/presentation/widgets/components/custom_dialogue.dart';
 import 'package:flutterchatapp/injection.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
-import 'package:flutterchatapp/features/presentation/bloc/update_messages_bloc/update_message_bloc.dart';
+
 
 
 class ChatPage extends StatefulWidget {
-  final ConversationData data;
+  final ConversationModel conversation;
 
-  const ChatPage({this.data}); //Conversation data
+  const ChatPage({this.conversation}); //Conversation data
   @override
-  _ChatPageState createState() => _ChatPageState(this.data);
+  _ChatPageState createState() => _ChatPageState(this.conversation);
 }
 
 class _ChatPageState extends State<ChatPage>
     with AutomaticKeepAliveClientMixin {
-  final ConversationData data;
+  final ConversationModel conversation;
   final ScrollController _controller = ScrollController();
   final TextEditingController _messageController = TextEditingController();
 
@@ -33,12 +33,13 @@ class _ChatPageState extends State<ChatPage>
 
   PostMessageBloc _bloc;
 
-  _ChatPageState(this.data);
+  _ChatPageState(this.conversation);
 
   @override
   void initState() {
     _bloc = getIt<PostMessageBloc>();
     super.initState();
+    _messageController.clear();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.jumpTo(_controller.position.maxScrollExtent);
     });
@@ -62,7 +63,7 @@ class _ChatPageState extends State<ChatPage>
               ),
               onPressed: () => ExtendedNavigator.of(context).pop()),
           title: Text(
-            '${data.user.name}',
+            '${conversation.user.name}',
             style: TextStyle(color: Style.primaryColor),
           ),
           centerTitle: true,
@@ -73,10 +74,12 @@ class _ChatPageState extends State<ChatPage>
             BlocBuilder<PostMessageBloc, PostMessageState>(
               builder: (context, state) {
                 if (state is PostMessageSuccess){//! ngooojaaaa hapa kuna nomaa sanna, ungekuja jana ngojaaaa
-                  // _messageController.clear();
-                  // _controller.jumpTo(_controller.position.maxScrollExtent);
+                 
+                  _messageController.clear();
+                  var message = state.message;
+                  _controller.jumpTo(_controller.position.maxScrollExtent);
                   // data.messages.add(value):
-                  getIt<UpdateMessageBloc>().add(UpdateMessageEvent.updateMessage(state.model.data.single.messages.single));
+                  conversation.messages.add(message);
                   
                 }
                 //! hii iko sawa...usiguze
@@ -86,16 +89,16 @@ class _ChatPageState extends State<ChatPage>
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.safeBlockHorizontal * 4,
                         vertical: SizeConfig.safeBlockVertical * 3),
-                    itemCount: data.messages.length,
-                    itemBuilder: (context, index) => data
+                    itemCount: conversation.messages.length,
+                    itemBuilder: (context, index) => conversation
                                 .messages[index].userId ==
-                            data.user.id
+                            conversation.user.id
                         ? FriendChatCard(
-                            messages: data.messages[index],
-                            imageUrl: data.user.imageUrl,
+                            messages: conversation.messages[index],
+                            imageUrl: conversation.user.imageUrl,
                           )
                         : MyChatCard(
-                            messages: data.messages[index],
+                            messages: conversation.messages[index],
                           ), //TODO baddo ngooojaaaa..hapa bado..lazima nione vle ntaeka
                     // FriendChatCard(),
                     // MyChatCard(),
@@ -171,7 +174,7 @@ class _ChatPageState extends State<ChatPage>
   }
 
   _sendMessage() {
-    _bloc.add(PostMessageEvent.sendMessage(_messageController.text, data.id));
+    _bloc.add(PostMessageEvent.sendMessage(_messageController.text, conversation.id));
   }
 
   @override

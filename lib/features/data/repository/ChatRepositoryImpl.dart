@@ -6,7 +6,8 @@ import 'package:flutterchatapp/core/network/network_info.dart';
 import 'package:flutterchatapp/features/data/datasource/auth_local_data.dart';
 import 'package:flutterchatapp/features/data/datasource/auth_remote_data.dart';
 import 'package:flutterchatapp/features/data/model/api_success_model.dart';
-import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
+import 'package:flutterchatapp/features/data/model/conversation/conversation_model.dart';
+import 'package:flutterchatapp/features/data/model/conversation/message_model.dart';
 import 'package:flutterchatapp/features/domain/repository/chat_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -23,7 +24,7 @@ class ChatRepositoryImp implements ChatRepository {
 
   
   @override
-  Future<Either<Failure, GetConversationModel>> getConversation() async{
+  Future<Either<Failure, List<ConversationModel>>> getConversation() async{
     final accessToken = localDataSource.getAuthToken();
     if (accessToken != null) {
       if (await networkInfo.isConnected) {
@@ -39,7 +40,7 @@ class ChatRepositoryImp implements ChatRepository {
   }
 
   @override
-  Future<Either<Failure, GetConversationModel>> postMessage(String body, int conversationId) async{
+  Future<Either<Failure, MessagesModel>> postMessage(String body, int conversationId) async{
     final accessToken = localDataSource.getAuthToken();
     if (accessToken != null) {
       if (await networkInfo.isConnected) {
@@ -50,17 +51,6 @@ class ChatRepositoryImp implements ChatRepository {
       }
     } else {
       return Left(UnAuthenticatedFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, ConversationData>> updateMessage(Messages messages)async {
-    ConversationData data = new ConversationData();
-    try{
-      data.messages.add(messages);
-      return Right(data);
-    }on ServerException{
-    return Left(ServerFailure());
     }
   }
 }

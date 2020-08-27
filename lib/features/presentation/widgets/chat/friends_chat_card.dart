@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:flutterchatapp/core/utils/size_config.dart';
-import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
-
+import 'package:flutterchatapp/features/data/model/conversation/message_model.dart';
 class FriendChatCard extends StatelessWidget {
-  final Messages messages;
+  final MessagesModel messages;
   final String imageUrl;
   const FriendChatCard({
     Key key,this.messages,this.imageUrl

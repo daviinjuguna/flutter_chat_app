@@ -16,11 +16,11 @@ class GetConversationLoading extends GetConversationState {
   List<Object> get props => [];
 }
 class GetConversationSeccess extends GetConversationState {
-  final GetConversationModel data;
+  final List<ConversationModel> conversation;
 
-  GetConversationSeccess({@required this.data});
+  GetConversationSeccess({@required this.conversation});
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [conversation];
 }
 class GetConversationError extends GetConversationState {
   final String message;

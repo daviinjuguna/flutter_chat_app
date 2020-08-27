@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutterchatapp/features/data/model/conversation/conversation_model.dart';
+import 'package:flutterchatapp/features/data/model/conversation/message_model.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../core/errors/exceptions.dart';
 import '../model/auth_model.dart';
 import '../model/change_password_model.dart';
-import '../model/get_conversation_model.dart';
 import '../model/recover_password_model.dart';
-import '../model/user_model.dart';
 import 'api.dart';
 
 abstract class AuthRemoteDataSource{
   // Future<BaseModel<AuthModel>> loginUser(String email,String password);
   Future<AuthModel> loginUser(String email,String password);
-  Future<UserModel> registerUser(
+  Future<AuthModel> registerUser(
     String name,
     String email,
     String password,
@@ -21,8 +21,8 @@ abstract class AuthRemoteDataSource{
   Future<ChangePasswordModel> changePassword(int pin,String password);
   Future<void>logout(AuthModel model);
   Future<AuthModel> refreshToken(AuthModel model);
-  Future<GetConversationModel> getConversation(AuthModel model);
-  Future<GetConversationModel>postMessage(AuthModel model,String body,int conversationId);
+  Future<List<ConversationModel>> getConversation(AuthModel model);
+  Future<MessagesModel>postMessage(AuthModel model,String body,int conversationId);
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -43,10 +43,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   }
 
   @override
-  Future<UserModel> registerUser(String name, String email, String password, String passwordConfirmation) async{
+  Future<AuthModel> registerUser(String name, String email, String password, String passwordConfirmation) async{
     final response = await service.registerUser(name, email, password, passwordConfirmation);
     if (response.statusCode == 201) {//user created
-      return UserModel.fromJson(response.body);
+      return AuthModel.fromJson(response.body);
     } else {
       throw ServerException();
     }
@@ -97,10 +97,19 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   }
 
   @override
-  Future<GetConversationModel> getConversation(AuthModel model)async{
+  Future<List<ConversationModel>> getConversation(AuthModel model)async{
     final response = await service.getConversation('Bearer ${model.accessToken}');
    if (response.statusCode == 200) {
-      return GetConversationModel.fromJson(response.body);
+     List<ConversationModel> conversationModel=[];
+     try {
+       conversationModel = (response.body as List)
+          .map((e) => ConversationModel.fromJson(e))
+          .toList();
+     } catch (e) {
+       print(e.toString());
+     }
+     return conversationModel;
+
     }else if (response.statusCode == 401) {
       throw UnAuthenticatedException();
     } else {
@@ -109,14 +118,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   }
 
   @override
-  Future<GetConversationModel> postMessage(AuthModel model, String body, int conversationId)async {
+  Future<MessagesModel> postMessage(AuthModel model, String body, int conversationId)async {
     final response = await service.postMessage(
       'Bearer ${model.accessToken}',
       body,
       conversationId
     );
     if (response.statusCode == 200) {//created response
-      return GetConversationModel.fromJson(response.body);
+      return MessagesModel.fromJson(response.body);
     }else if (response.statusCode == 401) {
       throw UnAuthenticatedException();
     } else {

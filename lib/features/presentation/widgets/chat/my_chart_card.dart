@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterchatapp/core/utils/constants.dart';
 import 'package:flutterchatapp/core/utils/size_config.dart';
-import 'package:flutterchatapp/features/data/model/get_conversation_model.dart';
+import 'package:flutterchatapp/features/data/model/conversation/message_model.dart';
 
 class MyChatCard extends StatelessWidget {
-  final Messages messages;
+  final MessagesModel messages;
   const MyChatCard({
     Key key, @required this.messages,
   }) : super(key: key);

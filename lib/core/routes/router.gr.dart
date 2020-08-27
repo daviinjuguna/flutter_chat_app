@@ -10,7 +10,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/data/model/get_conversation_model.dart';
+import '../../features/data/model/conversation/conversation_model.dart';
 import '../../features/presentation/pages/chat/chat_page.dart';
 import '../../features/presentation/pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/pages/intro/intro_page.dart';
@@ -84,7 +84,7 @@ class Router extends RouterBase {
         orElse: () => ChatPageArguments(),
       );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => ChatPage(data: args.data),
+        builder: (context) => ChatPage(conversation: args.conversation),
         settings: data,
       );
     },
@@ -107,11 +107,11 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
   Future<dynamic> pushDashBoardPage() => push<dynamic>(Routes.dashBoardPage);
 
   Future<dynamic> pushChatPage({
-    ConversationData data,
+    ConversationModel conversation,
   }) =>
       push<dynamic>(
         Routes.chatPage,
-        arguments: ChatPageArguments(data: data),
+        arguments: ChatPageArguments(conversation: conversation),
       );
 }
 
@@ -121,6 +121,6 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
 
 /// ChatPage arguments holder class
 class ChatPageArguments {
-  final ConversationData data;
-  ChatPageArguments({this.data});
+  final ConversationModel conversation;
+  ChatPageArguments({this.conversation});
 }
